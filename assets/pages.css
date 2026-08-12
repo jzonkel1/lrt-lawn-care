@@ -6,6 +6,29 @@
 /* four columns in the footer now that Areas has its own list */
 @media (min-width:820px){.foot-grid{grid-template-columns:1.35fr 1fr 1fr 1fr;gap:2.4rem}}
 
+/* ---------- fixes: sunset rule spilling past rounded corners ---------- */
+/* the dropdown panel never clips its top gradient bar */
+.nav-menu{overflow:hidden}
+/* the featured plan card can't use overflow:hidden (the "Most popular" ribbon
+   hangs outside it), so paint the 3px rule as a background strip inside a
+   pseudo tall enough for the corner radius to actually clip it */
+.plan.feat::before{height:20px;border-radius:var(--r) var(--r) 0 0;
+  background:var(--sunset);background-size:100% 3px;background-repeat:no-repeat}
+
+/* ---------- sunset-gradient service cards ---------- */
+.svc{border-color:transparent;background:
+  linear-gradient(165deg,var(--ink-3),var(--ink-2)) padding-box,
+  linear-gradient(135deg,rgba(226,58,22,.5),rgba(245,135,31,.42) 34%,rgba(255,198,30,.38) 62%,rgba(95,217,74,.5)) border-box}
+.svc:hover{border-color:transparent;background:
+  linear-gradient(165deg,var(--ink-3),var(--ink-2)) padding-box,
+  linear-gradient(135deg,var(--sun-1),var(--sun-2) 34%,var(--sun-3) 62%,var(--turf)) border-box}
+.svc-ic{background:var(--diamond);border-color:transparent;color:#1c0c02;
+  box-shadow:0 12px 26px -10px rgba(245,135,31,.55);
+  transition:box-shadow .45s var(--ease),transform .45s var(--ease)}
+.svc:hover .svc-ic{box-shadow:0 16px 32px -10px rgba(245,135,31,.85);transform:translateY(-2px)}
+a.svc:hover .svc-more{background:var(--sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
+a.svc:hover .svc-more .ic{color:var(--turf-2)}
+
 /* ---------- interior page hero ---------- */
 .page-hero{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end;
   min-height:56svh;padding:8.5rem 0 clamp(2.6rem,5vw,4rem)}
