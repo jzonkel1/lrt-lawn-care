@@ -1,0 +1,163 @@
+/* ============================================================
+   LRT Lawn Care & Landscaping — interior-page additions.
+   Loads after site.css on every page.
+   ============================================================ */
+
+/* four columns in the footer now that Areas has its own list */
+@media (min-width:820px){.foot-grid{grid-template-columns:1.35fr 1fr 1fr 1fr;gap:2.4rem}}
+
+/* ---------- interior page hero ---------- */
+.page-hero{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end;
+  min-height:56svh;padding:8.5rem 0 clamp(2.6rem,5vw,4rem)}
+.page-hero.short{min-height:42svh}
+.ph-bg{position:absolute;inset:0;z-index:-3}
+.ph-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);animation:heroDrift 22s var(--ease) forwards}
+.ph-veil{position:absolute;inset:0;z-index:-2;background:
+  linear-gradient(180deg,rgba(6,13,8,.72) 0%,rgba(6,13,8,.3) 34%,rgba(6,13,8,.66) 72%,var(--ink) 100%),
+  linear-gradient(96deg,rgba(6,13,8,.72) 0%,rgba(6,13,8,.3) 48%,rgba(6,13,8,.05) 78%)}
+.ph-stripes{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:repeating-linear-gradient(101deg,rgba(255,255,255,.045) 0 52px,transparent 52px 104px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 40%,#000 100%);
+  mask-image:linear-gradient(180deg,transparent 40%,#000 100%)}
+.ph-in{width:var(--shell);margin-inline:auto;text-align:center}
+@media (min-width:900px){.ph-in{text-align:left}}
+.ph-in>*{opacity:0;transform:translateY(24px);animation:rise .9s var(--ease) forwards}
+.ph-in>*:nth-child(2){animation-delay:.12s}
+.ph-in>*:nth-child(3){animation-delay:.22s}
+.ph-in>*:nth-child(4){animation-delay:.32s}
+.ph-in h1{font-size:clamp(2.3rem,6.6vw,4rem);max-width:22ch;margin-inline:auto;text-shadow:0 6px 40px rgba(0,0,0,.55)}
+@media (min-width:900px){.ph-in h1{margin-inline:0}}
+.ph-in h1 em{font-style:normal;background:var(--diamond);-webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variation-settings:"SOFT" 60,"WONK" 1}
+.ph-sub{margin:1.1rem auto 0;max-width:38rem;font-size:clamp(1rem,2vw,1.14rem);color:#d3ded4;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+@media (min-width:900px){.ph-sub{margin:1.2rem 0 0}}
+.ph-cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem;justify-content:center}
+@media (min-width:900px){.ph-cta{justify-content:flex-start}}
+
+/* breadcrumbs */
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;justify-content:center;
+  font-size:.8rem;font-weight:500;color:var(--muted);margin-bottom:1.15rem}
+@media (min-width:900px){.crumbs{justify-content:flex-start}}
+.crumbs a{color:var(--turf-2);transition:color .25s}
+.crumbs a:hover{color:var(--sun-3)}
+.crumbs .ic{width:.8em;height:.8em;color:var(--muted-2)}
+
+/* ---------- split (text + photo) ---------- */
+.split{display:grid;gap:2.4rem;align-items:center}
+@media (min-width:960px){.split{grid-template-columns:1.05fr .95fr;gap:3.6rem}}
+@media (min-width:960px){.split.flip>.split-photo{order:-1}}
+.split-photo{border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);
+  box-shadow:0 30px 70px -40px #000;position:relative}
+.split-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.split-photo figcaption{position:absolute;inset:auto 0 0;padding:2.4rem 1.1rem .9rem;font-size:.82rem;font-weight:500;color:#e6ece6;
+  background:linear-gradient(180deg,transparent,rgba(6,13,8,.88))}
+.prose{color:var(--muted);font-size:1.02rem}
+.prose p+p{margin-top:1.05rem}
+.prose b,.prose strong{color:var(--txt)}
+.prose a{color:var(--turf-2);font-weight:600}
+.prose a:hover{color:var(--sun-3)}
+
+/* ---------- checklist ---------- */
+.checks{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;gap:.7rem}
+@media (min-width:640px){.checks.two{grid-template-columns:1fr 1fr;gap:.7rem 1.6rem}}
+.checks li{display:flex;gap:.7rem;align-items:flex-start;font-size:.97rem;color:#d3ded4}
+.checks .ic{width:1.2em;height:1.2em;color:var(--turf);margin-top:.2em;flex:none}
+
+/* ---------- numbered steps ---------- */
+.steps{display:grid;gap:1rem;counter-reset:step}
+@media (min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{position:relative;padding:1.9rem 1.6rem 1.7rem;border-radius:var(--r);border:1px solid var(--line);
+  background:linear-gradient(165deg,var(--ink-3),var(--ink-2))}
+.step::before{counter-increment:step;content:"0" counter(step);display:block;font-family:var(--disp);
+  font-size:2rem;font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.9rem;
+  background:var(--diamond);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h3{font-size:1.18rem;margin-bottom:.5rem}
+.step p{color:var(--muted);font-size:.94rem}
+
+/* ---------- facts row (about page) ---------- */
+.facts{display:grid;gap:1rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:820px){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fact{padding:1.6rem 1.2rem;border-radius:var(--r);border:1px solid var(--line);background:var(--ink-3);text-align:center}
+.fact b{display:block;font-family:var(--disp);font-size:clamp(1.35rem,3.6vw,1.9rem);font-weight:700;letter-spacing:-.03em;
+  background:var(--diamond);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
+.fact span{display:block;margin-top:.45rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* ---------- pull quote ---------- */
+.pull{position:relative;margin:0;padding:2.2rem 1.9rem;border-radius:var(--r);border:1px solid var(--line);
+  background:linear-gradient(165deg,var(--ink-3),var(--ink-2));overflow:hidden}
+.pull::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--sunset)}
+.pull p{font-family:var(--disp);font-size:clamp(1.2rem,2.6vw,1.5rem);font-weight:600;letter-spacing:-.015em;
+  line-height:1.4;color:#e8efe8;font-variation-settings:"SOFT" 60,"WONK" 1}
+.pull footer{margin-top:1.1rem;font-size:.88rem;color:var(--muted)}
+.pull footer b{color:var(--turf-2)}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:.7rem;max-width:52rem}
+.faq details{border:1px solid var(--line);border-radius:15px;background:linear-gradient(165deg,var(--ink-3),var(--ink-2));
+  overflow:hidden;transition:border-color .3s}
+.faq details[open]{border-color:var(--line-2)}
+.faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.9rem;justify-content:space-between;
+  padding:1.1rem 1.35rem;font-weight:600;font-size:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--disp);font-size:1.4rem;font-weight:400;color:var(--turf-2);
+  flex:none;line-height:1;transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--sun-3)}
+.faq details>p{padding:0 1.35rem 1.25rem;color:var(--muted);font-size:.96rem}
+
+/* ---------- CTA band ---------- */
+.cta-band{position:relative;overflow:hidden;background:
+  radial-gradient(90% 130% at 12% 0%,rgba(29,122,44,.3),transparent 60%),
+  radial-gradient(70% 110% at 92% 100%,rgba(245,135,31,.16),transparent 60%),var(--ink-2);
+  border-block:1px solid var(--line)}
+.cta-in{text-align:center;max-width:46rem;margin-inline:auto}
+.cta-in h2{font-size:clamp(2rem,5vw,3.1rem)}
+.cta-in p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
+.cta-in .ph-cta{justify-content:center}
+.cta-fine{margin-top:1.2rem;font-size:.84rem;color:var(--muted-2)}
+
+/* ---------- link chips (related services / towns) ---------- */
+.chips-row{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center}
+@media (min-width:900px){.chips-row{justify-content:flex-start}}
+.chips-row a.town{transition:border-color .25s,color .25s,transform .25s var(--ease)}
+.chips-row a.town:hover{border-color:var(--turf);color:var(--turf-2);transform:translateY(-2px)}
+
+/* ---------- town / area cards ---------- */
+.area-cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));justify-content:center}
+.area-card{position:relative;display:flex;flex-direction:column;gap:.45rem;padding:1.5rem 1.45rem 1.4rem;
+  border-radius:var(--r);border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));
+  overflow:hidden;transition:transform .4s var(--ease),border-color .3s,box-shadow .4s var(--ease)}
+.area-card::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--sunset);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.area-card:hover{transform:translateY(-5px);border-color:var(--line-2);box-shadow:0 24px 48px -30px rgba(0,0,0,.9)}
+.area-card:hover::before{transform:scaleX(1)}
+.area-card h3{font-size:1.2rem;display:flex;align-items:center;gap:.55rem}
+.area-card h3 .ic{width:1em;height:1em;color:var(--sun-2);flex:none}
+.area-card p{color:var(--muted);font-size:.9rem;flex:1}
+.area-card i{font-style:normal;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--turf-2);
+  display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem}
+.area-card i .ic{width:1em;height:1em}
+
+/* center the orphan in the services grid's last row when it has one */
+.svc-grid.centered{display:flex;flex-wrap:wrap;justify-content:center}
+.svc-grid.centered .svc{flex:1 1 300px;max-width:400px}
+
+/* clickable service cards */
+a.svc{color:inherit}
+a.svc .svc-more{display:inline-flex;align-items:center;gap:.45rem;margin-top:auto;padding-top:1rem;
+  font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--turf-2);transition:color .25s}
+a.svc:hover .svc-more{color:var(--sun-3)}
+a.svc .svc-more .ic{width:1em;height:1em}
+
+/* ---------- contact page ---------- */
+.contact-cards{display:grid;gap:1rem}
+@media (min-width:640px){.contact-cards{grid-template-columns:1fr 1fr}}
+.ccard{display:flex;gap:1rem;align-items:flex-start;padding:1.5rem 1.4rem;border-radius:var(--r);
+  border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));
+  transition:border-color .3s,transform .35s var(--ease)}
+a.ccard:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.ccard .cic{width:48px;height:48px;flex:none;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(160deg,rgba(23,48,31,.96),rgba(6,13,8,.96));border:1px solid var(--line-2);color:var(--turf-2)}
+.ccard .cic .ic{width:22px;height:22px}
+.ccard b{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.25rem}
+.ccard span{font-size:1.02rem;font-weight:600;word-break:break-word}
+.ccard small{display:block;margin-top:.25rem;font-size:.82rem;color:var(--muted-2);font-weight:400}
