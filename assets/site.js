@@ -191,6 +191,73 @@
     addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
   }
 
+  /* ---- home job-site reel carousel (native scroll-snap track) ---- */
+  var hrTrack = document.getElementById('hrTrack');
+  if (hrTrack){
+    var hrPrev = document.getElementById('hrPrev'),
+        hrNext = document.getElementById('hrNext'),
+        hrDots = document.getElementById('hrDots');
+
+    function hrPages(){
+      var w = hrTrack.clientWidth;
+      if (!w) return 1;
+      // ceil, with slack so 5 slides at 4-per-view still counts as 2 pages
+      return Math.max(1, Math.ceil((hrTrack.scrollWidth - 4) / w));
+    }
+    function hrPage(){
+      var max = hrTrack.scrollWidth - hrTrack.clientWidth;
+      if (max <= 0) return 0;
+      // the last page is shorter than a full viewport, so snap the count at the end
+      if (hrTrack.scrollLeft >= max - 4) return hrPages() - 1;
+      return Math.round(hrTrack.scrollLeft / hrTrack.clientWidth);
+    }
+    function hrSync(){
+      var pages = hrPages(), page = hrPage();
+      hrPrev.disabled = page <= 0;
+      hrNext.disabled = page >= pages - 1;
+      if (hrDots.children.length !== pages){
+        hrDots.innerHTML = '';
+        for (var i = 0; i < pages; i++){
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Go to clips ' + (i + 1) + ' of ' + pages);
+          (function(n){ b.addEventListener('click', function(){ hrGo(n); }); })(i);
+          hrDots.appendChild(b);
+        }
+      }
+      for (var j = 0; j < hrDots.children.length; j++){
+        hrDots.children[j].classList.toggle('on', j === page);
+      }
+    }
+    function hrGo(n){
+      var max = hrTrack.scrollWidth - hrTrack.clientWidth;
+      hrTrack.scrollTo({left: Math.min(n * hrTrack.clientWidth, max), behavior: 'smooth'});
+    }
+    hrPrev.addEventListener('click', function(){ hrGo(hrPage() - 1); });
+    hrNext.addEventListener('click', function(){ hrGo(hrPage() + 1); });
+    hrTrack.addEventListener('scroll', hrSync, {passive: true});
+    addEventListener('resize', hrSync);
+    hrSync();
+
+    // Lazy-attach each clip's src on first intersection, then play/pause with
+    // visibility. A <video src> downloads on mount no matter what preload says,
+    // so off-screen slides cost zero bytes until they scroll into view.
+    if ('IntersectionObserver' in window){
+      var hio = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          var v = e.target;
+          if (e.isIntersecting){
+            if (!v.src) v.src = v.dataset.src;
+            v.play().catch(function(){});
+          } else { v.pause(); }
+        });
+      }, {threshold:.25});
+      hrTrack.querySelectorAll('video').forEach(function(v){ hio.observe(v); });
+    } else {
+      hrTrack.querySelectorAll('video').forEach(function(v){ v.src = v.dataset.src; });
+    }
+  }
+
   /* ---- reel: carousel under 980px, static 2-up grid above ---- */
   var track = document.getElementById('reelTrack');
   if (track){

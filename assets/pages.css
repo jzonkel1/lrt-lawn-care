@@ -171,6 +171,41 @@ a.svc .svc-more{display:inline-flex;align-items:center;gap:.45rem;margin-top:aut
 a.svc:hover .svc-more{color:var(--sun-3)}
 a.svc .svc-more .ic{width:1em;height:1em}
 
+/* ---------- home job-site reel carousel ----------
+   House portrait-reel pattern: native scroll-snap track (swipe on mobile,
+   the peeking next card IS the affordance), arrows + page dots desktop-only,
+   every slide stays mounted so videos never remount/restart. */
+.hreel-sec{padding-top:clamp(3.2rem,6vw,4.6rem)}
+.hreel{display:flex;align-items:center;gap:.9rem}
+.hreel-btn{display:none}
+@media (min-width:900px){
+  .hreel-btn{display:grid;place-items:center;width:46px;height:46px;flex:none;border-radius:50%;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--txt);cursor:pointer;transition:.3s}
+  .hreel-btn:hover:not(:disabled){border-color:var(--turf);color:var(--turf-2)}
+  .hreel-btn:disabled{opacity:.25;cursor:default}
+}
+.hreel-track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+  overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none}
+.hreel-track::-webkit-scrollbar{display:none}
+/* 80% on mobile on purpose: the sliver of the next card peeking in is the swipe cue */
+.hreel-slide{scroll-snap-align:start;flex:0 0 80%;min-width:0;padding-inline:.45rem}
+.hreel-slide:first-child{padding-left:0}
+@media (min-width:640px){.hreel-slide{flex-basis:50%}}
+@media (min-width:1024px){.hreel-slide{flex-basis:25%}}
+.hreel-card{margin:0;position:relative;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:#000;transition:border-color .3s}
+.hreel-card:hover{border-color:var(--line-2)}
+.hreel-media{position:relative;aspect-ratio:3/4;background:#000}
+.hreel-media img,.hreel-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hreel-card figcaption{position:absolute;inset:auto 0 0;padding:2.4rem .9rem .85rem;font-size:.84rem;
+  font-weight:500;color:#e6ece6;background:linear-gradient(180deg,transparent,rgba(6,13,8,.92));pointer-events:none}
+.hreel-dots{display:none;justify-content:center;gap:.45rem;margin-top:1.5rem}
+@media (min-width:900px){.hreel-dots{display:flex}}
+.hreel-dots button{width:6px;height:6px;padding:0;border:0;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.28);transition:width .3s var(--ease),background .3s}
+.hreel-dots button:hover{background:rgba(255,255,255,.5)}
+.hreel-dots button.on{width:20px;background:var(--sun-2)}
+
 /* ---------- contact page ---------- */
 .contact-cards{display:grid;gap:1rem}
 @media (min-width:640px){.contact-cards{grid-template-columns:1fr 1fr}}

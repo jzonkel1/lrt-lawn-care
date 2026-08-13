@@ -874,6 +874,48 @@ def towns_chips_section(heading="Where we work", h2="Serving the Coastal Bend fr
 # ============================================================
 # PAGE BUILDERS
 # ============================================================
+# home-page reel carousel — the house portrait-reel pattern (native scroll-snap
+# track, arrows + page dots on desktop, swipe on mobile, lazy video attach).
+# Clips are silent on purpose (TikTok audio = licensed music), so no sound button.
+HOME_REELS = [
+    ("reel-mowing", "Knocking down an overgrown backyard"),
+    ("reel-route-sign", "Another finished cut on the route"),
+    ("clip-commercial", "Commercial grounds &mdash; edged to the curb line"),
+    ("clip-residential", "Residential route &mdash; walk, curb and ditch"),
+    ("reel-trailer", "Loaded up between stops"),
+]
+
+def home_reels_section():
+    slides = "".join(f"""
+        <div class="hreel-slide">
+          <figure class="hreel-card">
+            <div class="hreel-media">
+              <img src="/assets/{base}-poster.webp" alt="" loading="lazy">
+              <video muted loop playsinline preload="none" poster="/assets/{base}-poster.webp" data-src="/assets/{base}.mp4"></video>
+            </div>
+            <figcaption>{cap}</figcaption>
+          </figure>
+        </div>""" for base, cap in HOME_REELS)
+    return f"""
+<!-- ============ JOB-SITE REELS ============ -->
+<section class="sec hreel-sec stripes">
+  <div class="shell">
+    <div class="sec-head rv" style="margin-bottom:1.9rem">
+      <p class="eyebrow">Straight from the job site</p>
+      <h2>From the route, not a stock library.</h2>
+      <p>Every clip is LRT on a real Coastal Bend property.</p>
+    </div>
+    <div class="hreel rv">
+      <button type="button" class="hreel-btn" id="hrPrev" aria-label="Previous clips"><svg class="ic" viewBox="0 0 24 24" style="transform:rotate(180deg)"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div class="hreel-track" id="hrTrack">{slides}
+      </div>
+      <button type="button" class="hreel-btn" id="hrNext" aria-label="More clips">{ic("chev")}</button>
+    </div>
+    <div class="hreel-dots" id="hrDots" role="tablist" aria-label="Clip pages"></div>
+  </div>
+</section>
+"""
+
 def build_home():
     schema = json.dumps({
       "@context": "https://schema.org",
@@ -1034,7 +1076,7 @@ def build_home():
    </form>
   </div>
 </section>
-
+{home_reels_section()}
 <!-- ============ ASSURANCE BAR ============ -->
 <section class="bar">
   <div class="shell">
@@ -1283,6 +1325,10 @@ def build_our_work():
       <figure><img src="/assets/g-equipment.webp" alt="LRT's commercial mowers, blowers and trimmers staged on a lawn" loading="lazy" width="1100" height="825"><figcaption>Commercial-grade equipment &mdash; plus backups</figcaption></figure>
       <figure><img src="/assets/g-commercial-lot.webp" alt="A newly picked-up commercial property with the grounds mowed to the fence line" loading="lazy" width="1100" height="825"><figcaption>New commercial property, first service</figcaption></figure>
       <figure><img src="/assets/g-concrete-dig.webp" alt="Breaking out concrete by hand to open a planting hole" loading="lazy" width="900" height="1200"><figcaption>Concrete cut-out &amp; haul off</figcaption></figure>
+      <figure><img src="/assets/g-fleet.webp" alt="LRT's mowers, blowers and trimmers staged together on a fresh-cut lawn" loading="lazy" width="1400" height="1050"><figcaption>The fleet &mdash; mowers, blowers &amp; trimmers</figcaption></figure>
+      <figure><img src="/assets/g-field-mowers.webp" alt="Two SCAG zero-turn mowers on a freshly cut open field" loading="lazy" width="1400" height="1050"><figcaption>Open-field cut &mdash; two machines</figcaption></figure>
+      <figure><img src="/assets/g-pool-lawn.webp" alt="A backyard pool bordered by mowed lawn and clean patio" loading="lazy" width="1400" height="1050"><figcaption>Poolside lawn &amp; patio, kept sharp</figcaption></figure>
+      <figure><img src="/assets/g-bayfront.webp" alt="A bayfront lawn running down to a private pier and boat" loading="lazy" width="1400" height="1050"><figcaption>Bayfront lawn on the route</figcaption></figure>
     </div>
   </div>
 </section>
@@ -1351,8 +1397,8 @@ def build_about():
         </div>
       </div>
       <figure class="split-photo rv">
-        <img src="/assets/g-striped-lot.webp" alt="A large open lot mowed into clean stripes beside a red masonry wall" loading="lazy">
-        <figcaption>Portland, TX &mdash; a full lot mowed and striped.</figcaption>
+        <img src="/assets/lachristian-thomas.webp" alt="LaChristian Thomas, owner and operator of LRT Lawn Care &amp; Landscaping" loading="lazy" style="aspect-ratio:3/4;object-position:50% 20%">
+        <figcaption>LaChristian Thomas &mdash; Owner / Operator</figcaption>
       </figure>
     </div>
   </div>
