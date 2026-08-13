@@ -3,6 +3,15 @@
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
+  /* ---- pre-fill the quote form's service from ?service= (plan buttons link here) ---- */
+  var svcPre = new URLSearchParams(location.search).get('service');
+  if (svcPre){
+    document.querySelectorAll('form[name="lrt-quote"] select[name="service"]').forEach(function(sel){
+      sel.value = svcPre;
+      if (sel.value !== svcPre) sel.selectedIndex = 0;   // unknown value — leave the placeholder
+    });
+  }
+
   /* ---- nav + sticky call bar ---- */
   var nav = document.getElementById('nav'), bar = document.getElementById('callbar');
   function onScroll(){

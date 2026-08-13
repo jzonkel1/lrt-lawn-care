@@ -76,14 +76,14 @@ def fbic():
 SERVICES = [
  dict(
   slug="commercial-lawn-maintenance", name="Commercial Lawn Maintenance", icon="building",
-  card_photo="svc-commercial.webp", card_alt="A large commercial lawn mowed into clean stripes along a curved walk",
+  card_photo="g-field-mowers.webp", card_alt="Two SCAG zero-turn mowers cutting a large open commercial field",
   card_desc="Offices, storefronts, rentals and multi-building sites kept on a fixed schedule &mdash; including the ditches, right-of-ways and fence lines most crews skip.",
   tags=["Fixed schedule","Ditch &amp; ROW","Fully insured"],
   title="Commercial Lawn Maintenance | Coastal Bend, TX",
   desc="Fully insured commercial lawn maintenance for offices, retail, rentals, HOAs and industrial sites in Portland, Corpus Christi and the Coastal Bend. Fixed schedule, one invoice. Call (361) 765-5258.",
   h1="Commercial lawn maintenance that <em>holds its schedule</em>.",
   sub="Offices, storefronts, rental properties and multi-building sites across the Coastal Bend &mdash; one crew, one schedule, one invoice.",
-  hero_photo="svc-commercial.webp", hero_alt="A large commercial lawn mowed into clean stripes along a curved walk",
+  hero_photo="hero-field-mowers.webp", hero_alt="Two SCAG zero-turn mowers cutting a large open commercial field",
   intro=[
    "A commercial property doesn&rsquo;t get an off week. LRT keeps offices, retail centers, rental properties, HOA common areas, municipal grounds and industrial sites on a fixed service day, so the grounds look the same sharp way every time a tenant, customer or property manager pulls in.",
    "LaChristian has spent 12 years maintaining Coastal Bend properties &mdash; ten of them running commercial routes for other companies, the last two building LRT&rsquo;s own book. The person who walks your site and quotes it is the same person who shows up to cut it.",
@@ -109,14 +109,14 @@ SERVICES = [
  ),
  dict(
   slug="residential-lawn-care", name="Residential Lawn Care", icon="grass",
-  card_photo="svc-residential.webp", card_alt="A crisply edged residential front lawn beside a curved concrete driveway",
+  card_photo="g-pool-lawn.webp", card_alt="A backyard pool bordered by mowed lawn and a clean patio",
   card_desc="Mow, edge, weed-eat and blow down &mdash; front, back and sides &mdash; on a weekly or bi-weekly route so your yard never gets away from you.",
   tags=["Mowing","Edging","Weed eating","Blow down"],
   title="Residential Lawn Care | Portland &amp; Corpus Christi, TX",
   desc="Weekly and bi-weekly residential lawn care in Portland, Corpus Christi and the Coastal Bend. Mow, edge, weed-eat and blow down every visit. Free quotes — call or text (361) 765-5258.",
   h1="A yard that never <em>gets away</em> from you.",
   sub="Weekly or bi-weekly service &mdash; front, back and sides &mdash; edged, weed-eaten and blown down before we leave.",
-  hero_photo="svc-residential.webp", hero_alt="A crisply edged residential front lawn beside a curved concrete driveway",
+  hero_photo="hero-pool.webp", hero_alt="A backyard pool bordered by mowed lawn and a clean patio",
   intro=[
    "Every visit is the full job: mow the front, back and sides, edge along the driveway and walks, weed-eat the fence lines and beds, and blow every hard surface down before the trailer leaves. Not a quick pass with the gate left open &mdash; the whole yard, done right the first time.",
    "Recurring customers get a consistent day on the route, so the yard never reaches that embarrassing stage between cuts. Keep a card on file and the billing takes care of itself, or pay per visit &mdash; cash, check, Zelle, Venmo or Cash App all work.",
@@ -141,14 +141,14 @@ SERVICES = [
  ),
  dict(
   slug="commercial-landscaping", name="Commercial Landscaping", icon="layers",
-  card_photo="g-commercial-stripes.webp", card_alt="A large commercial lawn mowed into stripes along a curved concrete walk",
+  card_photo="g-entry-beds.webp", card_alt="An entry walkway with trimmed shrubs and a clean rock border",
   card_desc="Beds, borders, plantings, mulch and sod that make a property easier to lease, rent and run &mdash; installed, then maintained by the same crew.",
   tags=["Beds &amp; borders","Mulch &amp; sod","Property appearance"],
   title="Commercial Landscaping | Coastal Bend, TX",
   desc="Commercial landscaping for offices, retail centers, rentals and HOAs in Portland, Corpus Christi and the Coastal Bend — beds, borders, mulch, sod and ongoing property appearance management. Call (361) 765-5258.",
   h1="Landscaping that makes a property <em>easier to lease</em>.",
   sub="Beds, borders, plantings, mulch and sod for offices, centers and multi-unit properties &mdash; installed, then maintained.",
-  hero_photo="g-commercial-stripes.webp", hero_alt="A large commercial lawn mowed into stripes along a curved concrete walk",
+  hero_photo="hero-bayfront.webp", hero_alt="A maintained bayfront property running down to a private pier",
   intro=[
    "Curb appeal is the first thing a prospective tenant, buyer or customer judges a property on &mdash; before they ever see the inside. LRT builds and maintains the beds, borders and plantings that make a commercial property read as well-run from the street.",
    "The difference with LRT is what happens after the install: the same crew that put the landscape in keeps it on the maintenance schedule, so beds actually fill in and hold up instead of going shaggy by the next quarter. That&rsquo;s the property appearance management side of the business &mdash; one vendor responsible for how the whole site looks, year round.",
@@ -425,15 +425,22 @@ TOWNS = [
 TOWN_BY_SLUG = {t["slug"]: t for t in TOWNS}
 NAMED_TOWNS = [t for t in TOWNS if t["named"]]
 
-# hero backgrounds rotated across town pages so they don't all match
-TOWN_HEROES = ["g-striped-lot.webp","g-commercial-stripes.webp","g-front-lawn.webp","g-poolside.webp",
-               "g-front-drive.webp","g-walk-edges.webp","g-path-wide.webp","g-commercial-lot.webp",
-               "g-entry-beds.webp","g-striped-lot.webp","g-poolside.webp"]
+# hero backgrounds rotated across town pages — all from the 2000px hero set,
+# matched loosely to each town's character (coastal towns get the bay shots,
+# farm towns get the open-field cuts)
+TOWN_HEROES = ["hero-lawn.webp","hero-striped-2.webp","hero-pool-2.webp","hero-bay-walk.webp",
+               "hero-bayfront.webp","hero-fleet.webp","hero-field-mowers.webp","hero-scag-field.webp",
+               "hero-striped-2.webp","hero-pool.webp","hero-bayfront.webp"]
 
 # ============================================================
 # SHARED FRAGMENTS
 # ============================================================
 GEN_NOTE = "<!-- Generated by build.py — edit build.py and re-run; don't hand-edit this file. -->"
+
+# Cache-buster for site.css / pages.css / site.js. Bump whenever those files
+# change, or browsers keep serving the stale cached versions (symptom: carousel
+# slides stack vertically full-width because the CSS never arrived).
+ASSET_V = "5"
 
 def head(title, desc, extra=""):
     return f"""<!DOCTYPE html>
@@ -448,8 +455,8 @@ def head(title, desc, extra=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,50,1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/pages.css">{extra}
+<link rel="stylesheet" href="/assets/site.css?v={ASSET_V}">
+<link rel="stylesheet" href="/assets/pages.css?v={ASSET_V}">{extra}
 </head>
 <body class="grain">
 {GEN_NOTE}
@@ -572,8 +579,8 @@ def lightbox():
 """
 
 def tail(quote_href="/contact/", with_lightbox=False):
-    return (lightbox() if with_lightbox else "") + callbar(quote_href) + """
-<script src="/assets/site.js" defer></script>
+    return (lightbox() if with_lightbox else "") + callbar(quote_href) + f"""
+<script src="/assets/site.js?v={ASSET_V}" defer></script>
 </body>
 </html>
 """
@@ -672,7 +679,7 @@ def plans_section(compact=False):
           <li>{ic("check")}Same day every other week</li>
           <li>{ic("check")}Card on file &mdash; billed automatically</li>
         </ul>
-        <a class="btn btn-ghost" href="/contact/">Get my price</a>
+        <a class="btn btn-ghost" href="/contact/?service=Bi-weekly%20lawn%20service#quote">Get my price</a>
       </article>
 
       <article class="plan feat rv">
@@ -688,7 +695,7 @@ def plans_section(compact=False):
           <li>{ic("check")}Shrub &amp; bed upkeep included on request</li>
           <li>{ic("check")}Priority for clean-ups and extra work</li>
         </ul>
-        <a class="btn btn-call" href="/contact/">Get my price</a>
+        <a class="btn btn-call" href="/contact/?service=Weekly%20lawn%20service#quote">Get my price</a>
       </article>
 
       <article class="plan rv">
@@ -702,7 +709,7 @@ def plans_section(compact=False):
           <li>{ic("check")}Landscaping, sod &amp; mulch installs</li>
           <li>{ic("check")}Pay per visit &mdash; no commitment</li>
         </ul>
-        <a class="btn btn-ghost" href="/contact/">Get my price</a>
+        <a class="btn btn-ghost" href="/contact/?service=One-time%20cut#quote">Get my price</a>
       </article>
     </div>
 
@@ -878,11 +885,16 @@ def towns_chips_section(heading="Where we work", h2="Serving the Coastal Bend fr
 # track, arrows + page dots on desktop, swipe on mobile, lazy video attach).
 # Clips are silent on purpose (TikTok audio = licensed music), so no sound button.
 HOME_REELS = [
-    ("reel-mowing", "Knocking down an overgrown backyard"),
-    ("reel-route-sign", "Another finished cut on the route"),
-    ("clip-commercial", "Commercial grounds &mdash; edged to the curb line"),
-    ("clip-residential", "Residential route &mdash; walk, curb and ditch"),
-    ("reel-trailer", "Loaded up between stops"),
+    ("reel-mowing", "Knocking Down an Overgrown Backyard",
+     "Weeks of growth coming off in one visit &mdash; mowed, then edged and blown down before the trailer leaves."),
+    ("reel-route-sign", "Another Finished Cut on the Route",
+     "Fresh cut, sign in the yard &mdash; weekly and bi-weekly routes across Portland and the Coastal Bend."),
+    ("clip-commercial", "Commercial Grounds, Edged to the Curb",
+     "A commercial account on its fixed service day &mdash; walks, curbs and beds all handled."),
+    ("clip-residential", "The Residential Route",
+     "Walk, curb and ditch on a weekly stop &mdash; the whole frontage, not just the lawn."),
+    ("reel-trailer", "Loaded Up Between Stops",
+     "Commercial-grade SCAG equipment with backups, so the schedule holds."),
 ]
 
 def home_reels_section():
@@ -893,9 +905,9 @@ def home_reels_section():
               <img src="/assets/{base}-poster.webp" alt="" loading="lazy">
               <video muted loop playsinline preload="none" poster="/assets/{base}-poster.webp" data-src="/assets/{base}.mp4"></video>
             </div>
-            <figcaption>{cap}</figcaption>
+            <figcaption><b>{title}</b><span>{cap}</span></figcaption>
           </figure>
-        </div>""" for base, cap in HOME_REELS)
+        </div>""" for base, title, cap in HOME_REELS)
     return f"""
 <!-- ============ JOB-SITE REELS ============ -->
 <section class="sec hreel-sec stripes">
@@ -1130,9 +1142,34 @@ def build_home():
 """ + footer() + tail(quote_href="#quote")
     return html
 
-def ba_sliders():
+def ba_sidewalk_card():
+    """Third slider — frames pulled from LaChristian's own TikTok of the job
+    (same sidewalk, same parked cars/mailbox, before and after the cut)."""
     return f"""
-    <div class="ba-wrap">
+      <div class="ba-card rv">
+        <div class="ba" data-ba tabindex="0" role="slider" aria-label="Before and after: sidewalk overgrown, then edged clean" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+          <span class="ba-lbl b">Before</span>
+          <span class="ba-lbl a">After</span>
+          <img class="ba-base" src="/assets/ba3-after.webp" alt="The same sidewalk after the visit — mowed and edged clean to the concrete, with an LRT sign in the yard" width="720" height="540">
+          <div class="ba-top"><img src="/assets/ba3-before.webp" alt="A sidewalk nearly swallowed by overgrown grass on both sides" width="720" height="540"></div>
+          <div class="ba-handle"><span class="ba-knob">
+            {ic("chev")}
+            {ic("chev")}
+          </span></div>
+        </div>
+        <div class="ba-cap">
+          <h3>Sidewalk swallowed &rarr; edged to the concrete</h3>
+          <p>The walk was disappearing under the grass. One visit later it&rsquo;s mowed and edged clean to the concrete &mdash; sign in the yard.</p>
+          <span class="ba-hint">Drag the handle
+            {ic("arrow")}
+          </span>
+        </div>
+      </div>"""
+
+def ba_sliders(extra=""):
+    odd = " odd" if extra else ""
+    return f"""
+    <div class="ba-wrap{odd}">
       <div class="ba-card rv">
         <div class="ba" data-ba tabindex="0" role="slider" aria-label="Before and after: overgrown backyard mowed and striped" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
           <span class="ba-lbl b">Before</span>
@@ -1171,7 +1208,7 @@ def ba_sliders():
             {ic("arrow")}
           </span>
         </div>
-      </div>
+      </div>{extra}
     </div>"""
 
 def build_services_index():
@@ -1182,7 +1219,7 @@ def build_services_index():
     ) + nav() + page_hero(
       "Everything we do, <em>in one place</em>.",
       "Commercial and residential &mdash; from a weekly cut to a full landscape install. Every job quoted per property, free, usually same day.",
-      "g-commercial-stripes.webp", "A large commercial lawn mowed into stripes along a curved concrete walk",
+      "hero-scag-field.webp", "A SCAG zero-turn mower on a freshly cut open field",
       crumbs(("Home","/"),("Services",None)),
     ) + f"""
 <!-- ============ ALL SERVICES ============ -->
@@ -1288,7 +1325,7 @@ def build_our_work():
     ) + nav() + page_hero(
       "Every photo here is <em>our work</em>.",
       "Before-and-afters, the gallery and clips from the route &mdash; no stock photos, no borrowed jobs. What you see is what shows up.",
-      "g-striped-lot.webp", "A large open lot mowed into clean stripes beside a red masonry wall",
+      "hero-striped-2.webp", "A large open lot mowed into clean stripes beside a red masonry wall",
       crumbs(("Home","/"),("Our Work",None)),
     ) + f"""
 <!-- ============ BEFORE / AFTER ============ -->
@@ -1299,7 +1336,7 @@ def build_our_work():
       <h2>The difference, on the same property.</h2>
       <p>The same camera angle, before the crew showed up and after they left.</p>
     </div>
-{ba_sliders()}
+{ba_sliders(extra=ba_sidewalk_card())}
   </div>
 </section>
 
@@ -1378,7 +1415,7 @@ def build_about():
     ) + nav() + page_hero(
       "Owner-run, <em>and it shows</em>.",
       "LaChristian Thomas has spent 12 years taking care of Coastal Bend properties. The person who quotes your yard is the person who shows up to cut it.",
-      "g-equipment.webp", "LRT's commercial mowers, blowers and trimmers staged on a finished lawn",
+      "hero-fleet.webp", "LRT's commercial mowers, blowers and trimmers staged on a finished lawn",
       crumbs(("Home","/"),("About",None)),
     ) + f"""
 <!-- ============ STORY ============ -->
@@ -1525,7 +1562,7 @@ def build_areas_index():
     ) + nav() + page_hero(
       "Portland to Rockport, and <em>everything in between</em>.",
       "Based in Portland and running routes across the Coastal Bend &mdash; roughly a 45-mile radius from home base. Routes are planned by area, so recurring customers get a consistent day.",
-      "g-front-lawn.webp", "A crisply edged residential front lawn",
+      "hero-bay-walk.webp", "A maintained walkway leading down to the bay",
       crumbs(("Home","/"),("Service Areas",None)),
     ) + f"""
 <!-- ============ TOWNS ============ -->
