@@ -128,10 +128,17 @@ a.svc:hover .svc-more .ic{color:var(--turf-2)}
 .faq details>p{padding:0 1.35rem 1.25rem;color:var(--muted);font-size:.96rem}
 
 /* ---------- CTA band ---------- */
-.cta-band{position:relative;overflow:hidden;background:
-  radial-gradient(90% 130% at 12% 0%,rgba(29,122,44,.3),transparent 60%),
-  radial-gradient(70% 110% at 92% 100%,rgba(245,135,31,.16),transparent 60%),var(--ink-2);
-  border-block:1px solid var(--line)}
+/* A real job photo sits UNDER the brand gradient: the img is the bottom layer,
+   .cta-bg::after re-paints the gradient (mostly opaque ink) over it, and the
+   .shell content stacks on top. */
+.cta-band{position:relative;overflow:hidden;background:var(--ink-2);border-block:1px solid var(--line)}
+.cta-bg{position:absolute;inset:0}
+.cta-bg img{width:100%;height:100%;object-fit:cover}
+.cta-bg::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(90% 130% at 12% 0%,rgba(29,122,44,.34),transparent 60%),
+  radial-gradient(70% 110% at 92% 100%,rgba(245,135,31,.18),transparent 60%),
+  linear-gradient(180deg,rgba(8,16,10,.9),rgba(8,16,10,.82) 45%,rgba(8,16,10,.9))}
+.cta-band .shell{position:relative;z-index:1}
 .cta-in{text-align:center;max-width:46rem;margin-inline:auto}
 .cta-in h2{font-size:clamp(2rem,5vw,3.1rem)}
 .cta-in p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
@@ -300,3 +307,24 @@ a.ccard:hover{border-color:var(--line-2);transform:translateY(-3px)}
 .ccard b{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.25rem}
 .ccard span{font-size:1.02rem;font-weight:600;word-break:break-word}
 .ccard small{display:block;margin-top:.25rem;font-size:.82rem;color:var(--muted-2);font-weight:400}
+
+/* ---------- Where we work (About, editorial ledger) ---------- */
+.ww-list{margin-top:2.4rem;border-top:1px solid var(--line)}
+.ww-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:"town arrow" "note arrow";
+  align-items:center;column-gap:1rem;padding:1.05rem .2rem;border-bottom:1px solid var(--line);
+  text-decoration:none;color:inherit;transition:background .2s,padding .2s}
+.ww-town{grid-area:town;font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.45rem,3.2vw,1.9rem);line-height:1.15}
+.ww-note{grid-area:note;color:var(--muted-2);font-size:.86rem;margin-top:.2rem}
+.ww-arrow{grid-area:arrow;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--line-2);color:var(--muted);transition:all .25s}
+.ww-arrow .ic{width:17px;height:17px}
+.ww-row:hover{background:rgba(255,255,255,.025);padding-inline:.7rem}
+.ww-row:hover .ww-town{background:linear-gradient(90deg,var(--sun-2),var(--turf-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ww-row:hover .ww-arrow{border-color:var(--turf-2);color:var(--turf-2);transform:translateX(3px)}
+.ww-radius{margin-top:1.6rem;font-size:.92rem;color:var(--muted-2);line-height:2}
+.ww-radius a{color:var(--muted);font-weight:600;text-decoration:none}
+.ww-radius a:hover{color:var(--turf-2)}
+.ww-radius a .ic{width:13px;height:13px;vertical-align:-2px}
+@media (max-width:640px){
+  .ww-radius{text-align:center}
+}
