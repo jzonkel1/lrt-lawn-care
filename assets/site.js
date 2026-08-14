@@ -103,6 +103,16 @@
     addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
   }
 
+  /* ---- hero ambient video: desktop only, fade in once actually playing ---- */
+  var heroVid = document.getElementById('heroVid');
+  if (heroVid && matchMedia('(min-width:700px)').matches &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    heroVid.src = heroVid.dataset.src;
+    heroVid.addEventListener('playing', function(){ heroVid.classList.add('on'); }, {once:true});
+    var hp = heroVid.play();
+    if (hp && hp.catch) hp.catch(function(){});   // autoplay blocked — still image stays
+  }
+
   /* ---- reveal on scroll ---- */
   var rv = document.querySelectorAll('.rv');
   if ('IntersectionObserver' in window){
