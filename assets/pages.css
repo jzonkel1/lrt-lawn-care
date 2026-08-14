@@ -360,7 +360,15 @@ a.ccard:hover{border-color:var(--line-2);transform:translateY(-3px)}
   opacity:0;visibility:hidden;transition:opacity .32s var(--ease),visibility .32s;
   overflow-y:auto;-webkit-overflow-scrolling:touch;padding:100px 0 2.5rem;overscroll-behavior:contain}
 .mnav-open .mnav{opacity:1;visibility:visible}
-.mnav-open .nav{background:rgba(6,13,8,.92)}
+/* The sheet is a CHILD of the header, so a background on .nav paints BEHIND
+   it — sheet text scrolling up would collide with the bar text. Paint the bar
+   surface on a pseudo layered ABOVE the sheet (z2) but under the bar content
+   (z3): frosted glass over the scrolling menu. */
+.mnav-open .nav::before{content:"";position:absolute;inset:0;z-index:2;
+  background:rgba(6,13,8,.82);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--line-2)}
+.mnav-open .nav-in{z-index:3}
 html.mnav-open{overflow:hidden}
 .mnav-open #callbar{visibility:hidden}
 @media (min-width:1040px){.mnav{display:none}}
