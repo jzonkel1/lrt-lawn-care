@@ -171,6 +171,47 @@ a.svc .svc-more{display:inline-flex;align-items:center;gap:.45rem;margin-top:aut
 a.svc:hover .svc-more{color:var(--sun-3)}
 a.svc .svc-more .ic{width:1em;height:1em}
 
+/* ---------- global rhythm: the stock 8rem section padding stacked into
+   ~16rem dead zones between same-background sections. Tighten it. ---------- */
+.sec{padding:clamp(3.8rem,7vw,6.2rem) 0}
+
+/* cleaner CTA gradient — the diamond gradient's green tail read as a weird
+   stripe along the bottom of buttons. Buttons stay warm; text gradients,
+   labels and tiles elsewhere keep the full sunset. */
+.btn-call{background:linear-gradient(180deg,var(--sun-1) 0%,var(--sun-2) 52%,var(--sun-3) 100%)}
+
+/* mobile/desktop label swap (long desktop labels get short mobile twins) */
+.mswap .lg{display:none}
+@media (min-width:900px){.mswap .lg{display:inline}.mswap .sm{display:none}}
+
+/* ---------- hero trust row (replaces the plain pill chips) ---------- */
+.trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.05rem .6rem;margin-top:2rem}
+@media (min-width:900px){.trust{grid-template-columns:repeat(2,auto);justify-content:start;gap:1.15rem 2.6rem;margin-top:2.4rem}}
+.titem{display:flex;align-items:center;gap:.7rem;justify-content:center;text-align:left;min-width:0}
+@media (min-width:900px){.titem{justify-content:flex-start}}
+.titem .tic{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(180deg,var(--sun-1),var(--sun-2) 52%,var(--sun-3));color:#241002;
+  box-shadow:0 10px 22px -10px rgba(245,135,31,.75),inset 0 1px 0 rgba(255,255,255,.35)}
+.titem .tic .ic{width:19px;height:19px}
+.titem b{display:block;font-size:.84rem;font-weight:600;line-height:1.2;white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,.7)}
+@media (min-width:900px){.titem b{font-size:.9rem}}
+.titem i{display:block;font-style:normal;font-size:.6rem;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:#b9c8bb;margin-top:.2rem;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+@media (min-width:900px){.titem i{font-size:.64rem;letter-spacing:.08em}}
+
+/* ---------- mobile centering for standalone section headers ----------
+   (.sec-head already centers on mobile; these blocks build their own headers) */
+@media (max-width:899px){
+  .q-side{text-align:center}
+  .q-side .eyebrow{justify-content:center}
+  .q-side .q-list{text-align:left}
+  .q-direct{justify-items:center}
+  .area-grid>div:not(.map){text-align:center}
+  .area-grid .eyebrow{justify-content:center}
+  .towns{justify-content:center}
+}
+
 /* ---------- mobile hero readability ----------
    site.css's mobile veil and stripes are bottom-weighted, which left the
    headline sitting on nearly-bare photo. Darken the upper half, pull the
