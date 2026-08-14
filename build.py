@@ -1251,7 +1251,7 @@ def build_home():
     <div class="sec-head rv">
       <p class="eyebrow">Drag to see it</p>
       <h2>The difference, on the same property.</h2>
-      <p>Both of these are real LRT jobs &mdash; the same camera angle, before the crew showed up and after they left.</p>
+      <p>All three are real LRT jobs &mdash; the same camera angle, before the crew showed up and after they left.</p>
     </div>
 {ba_sliders()}
     <div style="text-align:center;margin-top:2.4rem" class="rv">
@@ -1266,73 +1266,60 @@ def build_home():
 """ + footer() + tail(quote_href="#quote")
     return html
 
-def ba_sidewalk_card():
-    """Third slider — frames pulled from LaChristian's own TikTok of the job
-    (same sidewalk, same parked cars/mailbox, before and after the cut)."""
+def _ba_card(aria, base, base_alt, top, top_alt, w, h, h3, p):
     return f"""
       <div class="ba-card rv">
-        <div class="ba" data-ba tabindex="0" role="slider" aria-label="Before and after: sidewalk overgrown, then edged clean" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+        <div class="ba" data-ba tabindex="0" role="slider" aria-label="{aria}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
           <span class="ba-lbl b">Before</span>
           <span class="ba-lbl a">After</span>
-          <img class="ba-base" src="/assets/ba3-after.webp" alt="The same sidewalk after the visit — mowed and edged clean to the concrete, with an LRT sign in the yard" width="720" height="540">
-          <div class="ba-top"><img src="/assets/ba3-before.webp" alt="A sidewalk nearly swallowed by overgrown grass on both sides" width="720" height="540"></div>
+          <img class="ba-base" src="/assets/{base}" alt="{base_alt}" width="{w}" height="{h}">
+          <div class="ba-top"><img src="/assets/{top}" alt="{top_alt}" width="{w}" height="{h}"></div>
           <div class="ba-handle"><span class="ba-knob">
             {ic("chev")}
             {ic("chev")}
           </span></div>
         </div>
         <div class="ba-cap">
-          <h3>Sidewalk swallowed &rarr; edged to the concrete</h3>
-          <p>The walk was disappearing under the grass. One visit later it&rsquo;s mowed and edged clean to the concrete &mdash; sign in the yard.</p>
+          <h3>{h3}</h3>
+          <p>{p}</p>
           <span class="ba-hint">Drag the handle
             {ic("arrow")}
           </span>
         </div>
       </div>"""
 
-def ba_sliders(extra=""):
-    odd = " odd" if extra else ""
-    return f"""
-    <div class="ba-wrap{odd}">
-      <div class="ba-card rv">
-        <div class="ba" data-ba tabindex="0" role="slider" aria-label="Before and after: overgrown backyard mowed and striped" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
-          <span class="ba-lbl b">Before</span>
-          <span class="ba-lbl a">After</span>
-          <img class="ba-base" src="/assets/ba1-after.webp" alt="The same backyard after LRT mowed it into clean stripes and blew off the hard surfaces" width="1100" height="825">
-          <div class="ba-top"><img src="/assets/ba1-before.webp" alt="An overgrown backyard in Portland, Texas before LRT's crew arrived" width="1100" height="825"></div>
-          <div class="ba-handle"><span class="ba-knob">
-            {ic("chev")}
-            {ic("chev")}
-          </span></div>
-        </div>
-        <div class="ba-cap">
-          <h3>Backyard gone long &rarr; striped and blown off</h3>
-          <p>Missed a couple of cuts over a wet stretch. One visit: mowed, edged along the slab, weed-eaten to the fence line and blown down.</p>
-          <span class="ba-hint">Drag the handle
-            {ic("arrow")}
-          </span>
-        </div>
-      </div>
+def ba_card_sidewalk():
+    # frames pulled from LaChristian's own TikTok of the job (same sidewalk,
+    # same parked cars/mailbox, before and after the cut) — the strongest pair
+    return _ba_card(
+      "Before and after: sidewalk overgrown, then edged clean",
+      "ba3-after.webp", "The same sidewalk after the visit — mowed and edged clean to the concrete, with an LRT sign in the yard",
+      "ba3-before.webp", "A sidewalk nearly swallowed by overgrown grass on both sides", 720, 540,
+      "Sidewalk swallowed &rarr; edged to the concrete",
+      "The walk was disappearing under the grass. One visit later it&rsquo;s mowed and edged clean to the concrete &mdash; sign in the yard.")
 
-      <div class="ba-card rv">
-        <div class="ba" data-ba tabindex="0" role="slider" aria-label="Before and after: concrete slab cut open for a crape myrtle" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
-          <span class="ba-lbl b">Before</span>
-          <span class="ba-lbl a">After</span>
-          <img class="ba-base" src="/assets/ba2-after.webp" alt="A clean round opening cut through the concrete slab, backfilled with soil and ready to plant" width="900" height="900">
-          <div class="ba-top"><img src="/assets/ba2-before.webp" alt="A solid concrete slab marked with a spray-painted circle before the cut" width="900" height="900"></div>
-          <div class="ba-handle"><span class="ba-knob">
-            {ic("chev")}
-            {ic("chev")}
-          </span></div>
-        </div>
-        <div class="ba-cap">
-          <h3>Solid slab &rarr; a planting hole for a crape myrtle</h3>
-          <p>The client wanted a crape myrtle where there was nothing but concrete. Marked, broken out, hauled off and backfilled &mdash; ready to plant.</p>
-          <span class="ba-hint">Drag the handle
-            {ic("arrow")}
-          </span>
-        </div>
-      </div>{extra}
+def ba_card_backyard():
+    return _ba_card(
+      "Before and after: overgrown backyard mowed and striped",
+      "ba1-after.webp", "The same backyard after LRT mowed it into clean stripes and blew off the hard surfaces",
+      "ba1-before.webp", "An overgrown backyard in Portland, Texas before LRT's crew arrived", 1100, 825,
+      "Backyard gone long &rarr; striped and blown off",
+      "Missed a couple of cuts over a wet stretch. One visit: mowed, edged along the slab, weed-eaten to the fence line and blown down.")
+
+def ba_card_slab():
+    return _ba_card(
+      "Before and after: concrete slab cut open for a crape myrtle",
+      "ba2-after.webp", "A clean round opening cut through the concrete slab, backfilled with soil and ready to plant",
+      "ba2-before.webp", "A solid concrete slab marked with a spray-painted circle before the cut", 900, 900,
+      "Solid slab &rarr; a planting hole for a crape myrtle",
+      "The client wanted a crape myrtle where there was nothing but concrete. Marked, broken out, hauled off and backfilled &mdash; ready to plant.")
+
+def ba_sliders():
+    """All three pairs, strongest first (sidewalk). Odd count -> the existing
+    .ba-wrap.odd rule centers the third card instead of stranding it left."""
+    cards = ba_card_sidewalk() + ba_card_backyard() + ba_card_slab()
+    return f"""
+    <div class="ba-wrap odd">{cards}
     </div>"""
 
 def build_services_index():
@@ -1483,7 +1470,7 @@ def build_our_work():
       <h2>The difference, on the same property.</h2>
       <p>The same camera angle, before the crew showed up and after they left.</p>
     </div>
-{ba_sliders(extra=ba_sidewalk_card())}
+{ba_sliders()}
   </div>
 </section>
 
