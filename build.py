@@ -162,7 +162,7 @@ SERVICES = [
   desc="Commercial landscaping for offices, retail centers, rentals and HOAs in Portland, Corpus Christi and the Coastal Bend — installed, then maintained. Call (361) 765-5258.",
   h1="Landscaping that makes a property <em>easier to lease</em>.",
   sub="Beds, borders, plantings, mulch and sod for offices, centers and multi-unit properties &mdash; installed, then maintained.",
-  hero_photo="hero-commercial.webp", hero_alt="Fresh mulch beds with river rock and ornamental grasses installed along a commercial building",
+  hero_photo="hero-commercial.webp", hero_alt="LRT's truck and enclosed trailer at a commercial property, fresh rock beds and ornamental grasses in the foreground",
   intro=[
    "Curb appeal is the first thing a prospective tenant, buyer or customer judges a property on &mdash; before they ever see the inside. LRT builds and maintains the beds, borders and plantings that make a commercial property read as well-run from the street.",
    "The difference with LRT is what happens after the install: the same crew that put the landscape in keeps it on the maintenance schedule, so beds actually fill in and hold up instead of going shaggy by the next quarter. That&rsquo;s the property appearance management side of the business &mdash; one vendor responsible for how the whole site looks, year round.",
@@ -176,7 +176,7 @@ SERVICES = [
    "Property appearance management",
    "Ongoing maintenance after the install",
   ],
-  photo="svc-commercial-beds.webp", photo_alt="New rock beds with ornamental grasses at a commercial property, LRT's truck and trailer parked on site",
+  photo="svc-commercial-beds.webp", photo_alt="A fresh river-rock bed cut in along the mowed lawn at a commercial property",
   photo_cap="Rock beds cut in at a commercial site &mdash; installed by LRT, then kept on the route.",
   faqs=[
    ("Do you maintain what you install?", "Yes &mdash; that&rsquo;s the point. Most commercial landscaping fails because nobody maintains it after the install. LRT quotes the install and the upkeep together so the property keeps looking the way it did on day one."),
