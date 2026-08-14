@@ -162,7 +162,7 @@ SERVICES = [
   desc="Commercial landscaping for offices, retail centers, rentals and HOAs in Portland, Corpus Christi and the Coastal Bend — installed, then maintained. Call (361) 765-5258.",
   h1="Landscaping that makes a property <em>easier to lease</em>.",
   sub="Beds, borders, plantings, mulch and sod for offices, centers and multi-unit properties &mdash; installed, then maintained.",
-  hero_photo="hero-bayfront.webp", hero_alt="A maintained bayfront property running down to a private pier",
+  hero_photo="hero-commercial.webp", hero_alt="Fresh mulch beds with river rock and ornamental grasses installed along a commercial building",
   intro=[
    "Curb appeal is the first thing a prospective tenant, buyer or customer judges a property on &mdash; before they ever see the inside. LRT builds and maintains the beds, borders and plantings that make a commercial property read as well-run from the street.",
    "The difference with LRT is what happens after the install: the same crew that put the landscape in keeps it on the maintenance schedule, so beds actually fill in and hold up instead of going shaggy by the next quarter. That&rsquo;s the property appearance management side of the business &mdash; one vendor responsible for how the whole site looks, year round.",
