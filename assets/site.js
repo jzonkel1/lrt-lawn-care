@@ -238,6 +238,9 @@
       var pages = hrPages(), page = hrPage();
       hrPrev.disabled = page <= 0;
       hrNext.disabled = page >= pages - 1;
+      // single page (e.g. 4 clips at 4-up): no paging chrome at all
+      hrPrev.style.visibility = hrNext.style.visibility = pages > 1 ? '' : 'hidden';
+      hrDots.style.display = pages > 1 ? '' : 'none';
       if (hrDots.children.length !== pages){
         hrDots.innerHTML = '';
         for (var i = 0; i < pages; i++){
@@ -262,23 +265,31 @@
     addEventListener('resize', hrSync);
     hrSync();
 
-    // Lazy-attach each clip's src on first intersection, then play/pause with
-    // visibility. A <video src> downloads on mount no matter what preload says,
-    // so off-screen slides cost zero bytes until they scroll into view.
+    // Attach every clip's src as soon as the carousel section nears the
+    // viewport, so off-page slides buffer in the background instead of sitting
+    // frozen on their poster after a swipe. (Attaching on per-card visibility
+    // meant a page-2 clip only STARTED downloading once you swiped to it.)
+    function hrAttachAll(){
+      hrTrack.querySelectorAll('video').forEach(function(v){
+        if (!v.src){ v.preload = 'auto'; v.src = v.dataset.src; }
+      });
+    }
     if ('IntersectionObserver' in window){
+      var sio = new IntersectionObserver(function(es){
+        if (es.some(function(e){ return e.isIntersecting; })){
+          hrAttachAll(); sio.disconnect();
+        }
+      }, {rootMargin: '400px 0px'});
+      sio.observe(hrTrack);
+      // visible cards play, clipped/off-screen cards pause
       var hio = new IntersectionObserver(function(es){
         es.forEach(function(e){
-          var v = e.target;
-          if (e.isIntersecting){
-            if (!v.src) v.src = v.dataset.src;
-            v.play().catch(function(){});
-          } else { v.pause(); }
+          if (e.isIntersecting){ e.target.play().catch(function(){}); }
+          else { e.target.pause(); }
         });
       }, {threshold:.25});
       hrTrack.querySelectorAll('video').forEach(function(v){ hio.observe(v); });
-    } else {
-      hrTrack.querySelectorAll('video').forEach(function(v){ v.src = v.dataset.src; });
-    }
+    } else { hrAttachAll(); }
   }
 
   /* ---- reel: carousel under 980px, static 2-up grid above ---- */
