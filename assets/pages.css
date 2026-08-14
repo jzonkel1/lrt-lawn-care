@@ -1,0 +1,400 @@
+/* ============================================================
+   LRT Lawn Care & Landscaping — interior-page additions.
+   Loads after site.css on every page.
+   ============================================================ */
+
+/* four columns in the footer now that Areas has its own list */
+@media (min-width:820px){.foot-grid{grid-template-columns:1.35fr 1fr 1fr 1fr;gap:2.4rem}}
+
+/* ---------- fixes: sunset rule spilling past rounded corners ---------- */
+/* the dropdown panel never clips its top gradient bar */
+.nav-menu{overflow:hidden}
+/* the featured plan card can't use overflow:hidden (the "Most popular" ribbon
+   hangs outside it), so paint the 3px rule as a background strip inside a
+   pseudo tall enough for the corner radius to actually clip it */
+.plan.feat::before{height:20px;border-radius:var(--r) var(--r) 0 0;
+  background:var(--sunset);background-size:100% 3px;background-repeat:no-repeat}
+
+/* ---------- sunset-gradient service cards ---------- */
+.svc{border-color:transparent;background:
+  linear-gradient(165deg,var(--ink-3),var(--ink-2)) padding-box,
+  linear-gradient(135deg,rgba(226,58,22,.5),rgba(245,135,31,.42) 34%,rgba(255,198,30,.38) 62%,rgba(95,217,74,.5)) border-box}
+.svc:hover{border-color:transparent;background:
+  linear-gradient(165deg,var(--ink-3),var(--ink-2)) padding-box,
+  linear-gradient(135deg,var(--sun-1),var(--sun-2) 34%,var(--sun-3) 62%,var(--turf)) border-box}
+.svc-ic{background:var(--diamond);border-color:transparent;color:#1c0c02;
+  box-shadow:0 12px 26px -10px rgba(245,135,31,.55);
+  transition:box-shadow .45s var(--ease),transform .45s var(--ease)}
+.svc:hover .svc-ic{box-shadow:0 16px 32px -10px rgba(245,135,31,.85);transform:translateY(-2px)}
+a.svc:hover .svc-more{background:var(--sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
+a.svc:hover .svc-more .ic{color:var(--turf-2)}
+
+/* ---------- interior page hero ---------- */
+.page-hero{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end;
+  min-height:56svh;padding:8.5rem 0 clamp(2.6rem,5vw,4rem)}
+.page-hero.short{min-height:42svh}
+.ph-bg{position:absolute;inset:0;z-index:-3}
+.ph-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);animation:heroDrift 22s var(--ease) forwards}
+.ph-veil{position:absolute;inset:0;z-index:-2;background:
+  linear-gradient(180deg,rgba(6,13,8,.72) 0%,rgba(6,13,8,.3) 34%,rgba(6,13,8,.66) 72%,var(--ink) 100%),
+  linear-gradient(96deg,rgba(6,13,8,.72) 0%,rgba(6,13,8,.3) 48%,rgba(6,13,8,.05) 78%)}
+.ph-stripes{position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:repeating-linear-gradient(101deg,rgba(255,255,255,.045) 0 52px,transparent 52px 104px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 40%,#000 100%);
+  mask-image:linear-gradient(180deg,transparent 40%,#000 100%)}
+.ph-in{width:var(--shell);margin-inline:auto;text-align:center}
+@media (min-width:900px){.ph-in{text-align:left}}
+.ph-in>*{opacity:0;transform:translateY(24px);animation:rise .9s var(--ease) forwards}
+.ph-in>*:nth-child(2){animation-delay:.12s}
+.ph-in>*:nth-child(3){animation-delay:.22s}
+.ph-in>*:nth-child(4){animation-delay:.32s}
+.ph-in h1{font-size:clamp(2.3rem,6.6vw,4rem);max-width:22ch;margin-inline:auto;text-shadow:0 6px 40px rgba(0,0,0,.55)}
+@media (min-width:900px){.ph-in h1{margin-inline:0}}
+.ph-in h1 em{font-style:normal;background:var(--diamond);-webkit-background-clip:text;background-clip:text;color:transparent;
+  font-variation-settings:"SOFT" 60,"WONK" 1}
+.ph-sub{margin:1.1rem auto 0;max-width:38rem;font-size:clamp(1rem,2vw,1.14rem);color:#d3ded4;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+@media (min-width:900px){.ph-sub{margin:1.2rem 0 0}}
+.ph-cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem;justify-content:center}
+@media (min-width:900px){.ph-cta{justify-content:flex-start}}
+
+/* breadcrumbs */
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;justify-content:center;
+  font-size:.8rem;font-weight:500;color:var(--muted);margin-bottom:1.15rem}
+@media (min-width:900px){.crumbs{justify-content:flex-start}}
+.crumbs a{color:var(--turf-2);transition:color .25s}
+.crumbs a:hover{color:var(--sun-3)}
+.crumbs .ic{width:.8em;height:.8em;color:var(--muted-2)}
+
+/* ---------- split (text + photo) ---------- */
+.split{display:grid;gap:2.4rem;align-items:center}
+@media (min-width:960px){.split{grid-template-columns:1.05fr .95fr;gap:3.6rem}}
+@media (min-width:960px){.split.flip>.split-photo{order:-1}}
+.split-photo{border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);
+  box-shadow:0 30px 70px -40px #000;position:relative}
+.split-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.split-photo figcaption{position:absolute;inset:auto 0 0;padding:2.4rem 1.1rem .9rem;font-size:.82rem;font-weight:500;color:#e6ece6;
+  background:linear-gradient(180deg,transparent,rgba(6,13,8,.88))}
+.prose{color:var(--muted);font-size:1.02rem}
+.prose p+p{margin-top:1.05rem}
+.prose b,.prose strong{color:var(--txt)}
+.prose a{color:var(--turf-2);font-weight:600}
+.prose a:hover{color:var(--sun-3)}
+
+/* ---------- checklist ---------- */
+.checks{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;gap:.7rem}
+@media (min-width:640px){.checks.two{grid-template-columns:1fr 1fr;gap:.7rem 1.6rem}}
+.checks li{display:flex;gap:.7rem;align-items:flex-start;font-size:.97rem;color:#d3ded4}
+.checks .ic{width:1.2em;height:1.2em;color:var(--turf);margin-top:.2em;flex:none}
+
+/* ---------- numbered steps ---------- */
+.steps{display:grid;gap:1rem;counter-reset:step}
+@media (min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{position:relative;padding:1.9rem 1.6rem 1.7rem;border-radius:var(--r);border:1px solid var(--line);
+  background:linear-gradient(165deg,var(--ink-3),var(--ink-2))}
+.step::before{counter-increment:step;content:"0" counter(step);display:block;font-family:var(--disp);
+  font-size:2rem;font-weight:700;letter-spacing:-.03em;line-height:1;margin-bottom:.9rem;
+  background:var(--diamond);-webkit-background-clip:text;background-clip:text;color:transparent}
+.step h3{font-size:1.18rem;margin-bottom:.5rem}
+.step p{color:var(--muted);font-size:.94rem}
+
+/* ---------- facts row (about page) ---------- */
+.facts{display:grid;gap:1rem;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:820px){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fact{padding:1.6rem 1.2rem;border-radius:var(--r);border:1px solid var(--line);background:var(--ink-3);text-align:center}
+.fact b{display:block;font-family:var(--disp);font-size:clamp(1.35rem,3.6vw,1.9rem);font-weight:700;letter-spacing:-.03em;
+  background:var(--diamond);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.1}
+.fact span{display:block;margin-top:.45rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* ---------- pull quote ---------- */
+.pull{position:relative;margin:0;padding:2.2rem 1.9rem;border-radius:var(--r);border:1px solid var(--line);
+  background:linear-gradient(165deg,var(--ink-3),var(--ink-2));overflow:hidden}
+.pull::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--sunset)}
+.pull p{font-family:var(--disp);font-size:clamp(1.2rem,2.6vw,1.5rem);font-weight:600;letter-spacing:-.015em;
+  line-height:1.4;color:#e8efe8;font-variation-settings:"SOFT" 60,"WONK" 1}
+.pull footer{margin-top:1.1rem;font-size:.88rem;color:var(--muted)}
+.pull footer b{color:var(--turf-2)}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:.7rem;max-width:52rem}
+.faq details{border:1px solid var(--line);border-radius:15px;background:linear-gradient(165deg,var(--ink-3),var(--ink-2));
+  overflow:hidden;transition:border-color .3s}
+.faq details[open]{border-color:var(--line-2)}
+.faq summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:.9rem;justify-content:space-between;
+  padding:1.1rem 1.35rem;font-weight:600;font-size:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--disp);font-size:1.4rem;font-weight:400;color:var(--turf-2);
+  flex:none;line-height:1;transition:transform .3s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg);color:var(--sun-3)}
+.faq details>p{padding:0 1.35rem 1.25rem;color:var(--muted);font-size:.96rem}
+
+/* ---------- CTA band ---------- */
+/* A real job photo sits UNDER the brand gradient: the img is the bottom layer,
+   .cta-bg::after re-paints the gradient (mostly opaque ink) over it, and the
+   .shell content stacks on top. */
+.cta-band{position:relative;overflow:hidden;background:var(--ink-2);border-block:1px solid var(--line)}
+.cta-bg{position:absolute;inset:0}
+.cta-bg img{width:100%;height:100%;object-fit:cover}
+.cta-bg::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(90% 130% at 12% 0%,rgba(29,122,44,.34),transparent 60%),
+  radial-gradient(70% 110% at 92% 100%,rgba(245,135,31,.18),transparent 60%),
+  linear-gradient(180deg,rgba(8,16,10,.9),rgba(8,16,10,.82) 45%,rgba(8,16,10,.9))}
+.cta-band .shell{position:relative;z-index:1}
+.cta-in{text-align:center;max-width:46rem;margin-inline:auto}
+.cta-in h2{font-size:clamp(2rem,5vw,3.1rem)}
+.cta-in p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
+.cta-in .ph-cta{justify-content:center}
+.cta-fine{margin-top:1.2rem;font-size:.84rem;color:var(--muted-2)}
+
+/* ---------- link chips (related services / towns) ---------- */
+.chips-row{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center}
+@media (min-width:900px){.chips-row{justify-content:flex-start}}
+.chips-row a.town{transition:border-color .25s,color .25s,transform .25s var(--ease)}
+.chips-row a.town:hover{border-color:var(--turf);color:var(--turf-2);transform:translateY(-2px)}
+
+/* ---------- town / area cards ---------- */
+.area-cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));justify-content:center}
+.area-card{position:relative;display:flex;flex-direction:column;gap:.45rem;padding:1.5rem 1.45rem 1.4rem;
+  border-radius:var(--r);border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));
+  overflow:hidden;transition:transform .4s var(--ease),border-color .3s,box-shadow .4s var(--ease)}
+.area-card::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--sunset);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.area-card:hover{transform:translateY(-5px);border-color:var(--line-2);box-shadow:0 24px 48px -30px rgba(0,0,0,.9)}
+.area-card:hover::before{transform:scaleX(1)}
+.area-card h3{font-size:1.2rem;display:flex;align-items:center;gap:.55rem}
+.area-card h3 .ic{width:1em;height:1em;color:var(--sun-2);flex:none}
+.area-card p{color:var(--muted);font-size:.9rem;flex:1}
+.area-card i{font-style:normal;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--turf-2);
+  display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem}
+.area-card i .ic{width:1em;height:1em}
+
+/* center the orphan in the services grid's last row when it has one */
+.svc-grid.centered{display:flex;flex-wrap:wrap;justify-content:center}
+.svc-grid.centered .svc{flex:1 1 300px;max-width:400px}
+
+/* service-kind label — separates the recurring services from project work
+   (e.g. commercial lawn maintenance vs commercial landscaping) */
+.svc-kind{display:block;font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--sun-3);margin-bottom:.4rem}
+.svc-kind.on-hero{margin-bottom:.55rem;color:var(--sun-3);text-shadow:0 2px 10px rgba(0,0,0,.8)}
+
+/* clickable service cards */
+a.svc{color:inherit}
+a.svc .svc-more{display:inline-flex;align-items:center;gap:.45rem;margin-top:auto;padding-top:1rem;
+  font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--turf-2);transition:color .25s}
+a.svc:hover .svc-more{color:var(--sun-3)}
+a.svc .svc-more .ic{width:1em;height:1em}
+
+/* ---------- global rhythm: the stock 8rem section padding stacked into
+   ~16rem dead zones between same-background sections. Tighten it. ---------- */
+.sec{padding:clamp(3.8rem,7vw,6.2rem) 0}
+
+/* cleaner CTA gradient — the diamond gradient's green tail read as a weird
+   stripe along the bottom of buttons. Buttons stay warm; text gradients,
+   labels and tiles elsewhere keep the full sunset. */
+.btn-call{background:linear-gradient(180deg,var(--sun-1) 0%,var(--sun-2) 52%,var(--sun-3) 100%)}
+
+/* mobile/desktop label swap (long desktop labels get short mobile twins) */
+.mswap .lg{display:none}
+@media (min-width:900px){.mswap .lg{display:inline}.mswap .sm{display:none}}
+
+/* ---------- hero trust row (replaces the plain pill chips) ---------- */
+/* columns size to their content and the whole 2x2 centers as one cluster —
+   icons sit near each other instead of being flung to the screen edges */
+.trust{display:grid;grid-template-columns:auto auto;justify-content:center;gap:1rem 1.4rem;margin-top:2rem}
+@media (min-width:900px){.trust{justify-content:start;gap:1.15rem 2.6rem;margin-top:2.4rem}}
+/* items left-align inside equal cells so the two columns of icons line up
+   vertically — per-cell centering left the grid looking scattered */
+.titem{display:flex;align-items:center;gap:.58rem;justify-content:flex-start;text-align:left;min-width:0}
+@media (min-width:900px){.titem{gap:.7rem}}
+.titem .tic{width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(180deg,var(--sun-1),var(--sun-2) 52%,var(--sun-3));color:#241002;
+  box-shadow:0 10px 22px -10px rgba(245,135,31,.75),inset 0 1px 0 rgba(255,255,255,.35)}
+@media (min-width:900px){.titem .tic{width:40px;height:40px;border-radius:12px}}
+.titem .tic .ic{width:18px;height:18px}
+@media (min-width:900px){.titem .tic .ic{width:19px;height:19px}}
+.titem b{display:block;font-size:.78rem;font-weight:600;line-height:1.2;white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,.7)}
+@media (min-width:900px){.titem b{font-size:.9rem}}
+.titem i{display:block;font-style:normal;font-size:.57rem;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;color:#b9c8bb;margin-top:.2rem;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+@media (min-width:900px){.titem i{font-size:.64rem;letter-spacing:.08em}}
+
+/* ---------- mobile centering for standalone section headers ----------
+   (.sec-head already centers on mobile; these blocks build their own headers) */
+@media (max-width:899px){
+  .q-side{text-align:center}
+  .q-side .eyebrow{justify-content:center}
+  .q-side .q-list{text-align:left}
+  .q-direct{justify-items:center}
+  .area-grid>div:not(.map){text-align:center}
+  .area-grid .eyebrow{justify-content:center}
+  .towns{justify-content:center}
+}
+
+/* ---------- mobile hero readability ----------
+   site.css's mobile veil and stripes are bottom-weighted, which left the
+   headline sitting on nearly-bare photo. Darken the upper half, pull the
+   stripes up, and give the type real shadows. Desktop is untouched. */
+@media (max-width:899px){
+  .hero-veil{background:linear-gradient(180deg,rgba(6,13,8,.7) 0%,rgba(6,13,8,.48) 22%,rgba(6,13,8,.54) 46%,rgba(6,13,8,.88) 78%,var(--ink) 100%)}
+  .hero-stripes{-webkit-mask-image:linear-gradient(180deg,transparent 5%,#000 55%);
+    mask-image:linear-gradient(180deg,transparent 5%,#000 55%)}
+  .hero .eyebrow{text-shadow:0 2px 8px rgba(0,0,0,.9)}
+  .hero h1{text-shadow:0 2px 10px rgba(0,0,0,.9),0 8px 40px rgba(0,0,0,.75)}
+  .hero-sub{text-shadow:0 2px 8px rgba(0,0,0,.9),0 4px 22px rgba(0,0,0,.75)}
+}
+
+/* gradient text + text-shadow = muddy brown: the shadow paints through the
+   transparent fill of background-clipped text. Kill the inherited shadow on
+   the gradient word and shadow its rendered pixels with a filter instead. */
+.hero h1 em{text-shadow:none;filter:drop-shadow(0 4px 16px rgba(0,0,0,.55))}
+
+/* odd number of before/after cards: never strand the last one hard-left —
+   flex-center the row so the orphan sits in the middle */
+@media (min-width:1000px){
+  .ba-wrap.odd{display:flex;flex-wrap:wrap;justify-content:center;gap:2rem}
+  .ba-wrap.odd .ba-card{flex:1 1 420px;max-width:calc(50% - 1rem)}
+}
+
+/* ---------- home job-site reel carousel ----------
+   House portrait-reel pattern: native scroll-snap track (swipe on mobile,
+   the peeking next card IS the affordance), arrows + page dots desktop-only,
+   every slide stays mounted so videos never remount/restart. */
+.hreel-sec{padding-top:clamp(3.2rem,6vw,4.6rem)}
+.hreel{display:flex;align-items:center;gap:.9rem}
+.hreel-btn{display:none}
+@media (min-width:900px){
+  .hreel-btn{display:grid;place-items:center;width:46px;height:46px;flex:none;border-radius:50%;
+    border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--txt);cursor:pointer;transition:.3s}
+  .hreel-btn:hover:not(:disabled){border-color:var(--turf);color:var(--turf-2)}
+  .hreel-btn:disabled{opacity:.25;cursor:default}
+}
+.hreel-track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+  overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none}
+.hreel-track::-webkit-scrollbar{display:none}
+/* 80% on mobile on purpose: the sliver of the next card peeking in is the swipe cue */
+.hreel-slide{scroll-snap-align:start;flex:0 0 80%;min-width:0;padding-inline:.45rem}
+.hreel-slide:first-child{padding-left:0}
+@media (min-width:640px){.hreel-slide{flex-basis:50%}}
+@media (min-width:1024px){.hreel-slide{flex-basis:25%}}
+.hreel-card{margin:0;height:100%;display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));transition:border-color .3s}
+.hreel-card:hover{border-color:var(--line-2)}
+.hreel-media{position:relative;aspect-ratio:3/4;background:#000;flex:none}
+.hreel-media img,.hreel-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* Eric-style caption block under the clip, not overlaid on it */
+.hreel-card figcaption{padding:1.05rem 1.15rem 1.2rem;flex:1}
+.hreel-card figcaption b{display:block;font-family:var(--disp);font-size:1.04rem;font-weight:700;
+  letter-spacing:-.015em;line-height:1.3;margin-bottom:.4rem}
+.hreel-card figcaption span{display:block;font-size:.86rem;color:var(--muted);line-height:1.55}
+.hreel-dots{display:none;justify-content:center;gap:.45rem;margin-top:1.5rem}
+@media (min-width:900px){.hreel-dots{display:flex}}
+.hreel-dots button{width:6px;height:6px;padding:0;border:0;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.28);transition:width .3s var(--ease),background .3s}
+.hreel-dots button:hover{background:rgba(255,255,255,.5)}
+.hreel-dots button.on{width:20px;background:var(--sun-2)}
+
+/* ---------- contact page ---------- */
+.contact-cards{display:grid;gap:1rem}
+@media (min-width:640px){.contact-cards{grid-template-columns:1fr 1fr}}
+.ccard{display:flex;gap:1rem;align-items:flex-start;padding:1.5rem 1.4rem;border-radius:var(--r);
+  border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));
+  transition:border-color .3s,transform .35s var(--ease)}
+a.ccard:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.ccard .cic{width:48px;height:48px;flex:none;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(160deg,rgba(23,48,31,.96),rgba(6,13,8,.96));border:1px solid var(--line-2);color:var(--turf-2)}
+.ccard .cic .ic{width:22px;height:22px}
+.ccard b{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.25rem}
+.ccard span{font-size:1.02rem;font-weight:600;word-break:break-word}
+.ccard small{display:block;margin-top:.25rem;font-size:.82rem;color:var(--muted-2);font-weight:400}
+
+/* ---------- Where we work (About, editorial ledger) ---------- */
+.ww-list{margin-top:2.4rem;border-top:1px solid var(--line)}
+.ww-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:"town arrow" "note arrow";
+  align-items:center;column-gap:1rem;padding:1.05rem .2rem;border-bottom:1px solid var(--line);
+  text-decoration:none;color:inherit;transition:background .2s,padding .2s}
+.ww-town{grid-area:town;font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.45rem,3.2vw,1.9rem);line-height:1.15}
+.ww-note{grid-area:note;color:var(--muted-2);font-size:.86rem;margin-top:.2rem}
+.ww-arrow{grid-area:arrow;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--line-2);color:var(--muted);transition:all .25s}
+.ww-arrow .ic{width:17px;height:17px}
+.ww-row:hover{background:rgba(255,255,255,.025);padding-inline:.7rem}
+.ww-row:hover .ww-town{background:linear-gradient(90deg,var(--sun-2),var(--turf-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ww-row:hover .ww-arrow{border-color:var(--turf-2);color:var(--turf-2);transform:translateX(3px)}
+.ww-radius{margin-top:1.6rem;font-size:.92rem;color:var(--muted-2);line-height:2}
+.ww-radius a{color:var(--muted);font-weight:600;text-decoration:none}
+.ww-radius a:hover{color:var(--turf-2)}
+.ww-radius a .ic{width:13px;height:13px;vertical-align:-2px}
+@media (max-width:640px){
+  .ww-radius{text-align:center}
+}
+
+/* ---------- nav dropdown fixes ----------
+   The panel used to anchor to the trigger button and rose 19px INTO the bar
+   (looked like the nav "went black" and bled above it when scrolled). Anchor
+   panels to the bar's bottom edge instead, and open on CLICK only. */
+.nav-drop{position:static}
+.nav-drop::after{content:none}
+.nav-menu{top:100%;left:50%;translate:-50% 0;transform:translateY(6px)}
+.nav-drop:hover:not(.open) .nav-menu{opacity:0;visibility:hidden;transform:translateY(6px)}
+.nav-drop:hover:not(.open)>button .ic{transform:none}
+.nav-drop:hover:not(.open)>button::after{transform:scaleX(0)}
+.nav-menu.cols3{grid-template-columns:repeat(3,1fr);width:min(680px,92vw)}
+
+/* ---------- hamburger + mobile menu sheet ---------- */
+.nav-in{position:relative;z-index:2}
+.nav-burger{display:none}
+@media (max-width:1039px){
+  .nav-burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    width:44px;height:44px;flex:none;border:1px solid var(--line-2);border-radius:12px;
+    background:rgba(6,13,8,.45);cursor:pointer;padding:0}
+}
+.nav-burger span{display:block;width:18px;height:2px;background:#e6ece6;border-radius:2px;
+  transition:transform .3s var(--ease),opacity .2s}
+.mnav-open .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mnav-open .nav-burger span:nth-child(2){opacity:0}
+.mnav-open .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mnav{position:fixed;inset:0;z-index:1;background:rgba(6,13,8,.97);
+  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+  opacity:0;visibility:hidden;transition:opacity .32s var(--ease),visibility .32s;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;padding:100px 0 2.5rem;overscroll-behavior:contain}
+.mnav-open .mnav{opacity:1;visibility:visible}
+/* The sheet is a CHILD of the header, so a background on .nav paints BEHIND
+   it — sheet text scrolling up would collide with the bar text. Paint the bar
+   surface on a pseudo layered ABOVE the sheet (z2) but under the bar content
+   (z3): frosted glass over the scrolling menu. */
+.mnav-open .nav::before{content:"";position:absolute;inset:0;z-index:2;
+  background:rgba(6,13,8,.82);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--line-2)}
+.mnav-open .nav-in{z-index:3}
+html.mnav-open{overflow:hidden}
+.mnav-open #callbar{visibility:hidden}
+@media (min-width:1040px){.mnav{display:none}}
+.mnav-in{width:var(--shell);margin-inline:auto;display:grid;justify-items:center;text-align:center;padding-bottom:2rem}
+.mnav-primary{display:grid;width:100%}
+.mnav-primary a{font-family:var(--disp);font-weight:600;font-size:1.55rem;letter-spacing:-.02em;
+  padding:.6rem;color:var(--txt)}
+.mnav-label{margin-top:1.9rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);font-weight:600}
+.mnav-list{display:grid;width:100%;margin-top:.55rem}
+.mnav-list a{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.52rem;color:#cfdcd1;font-size:1.02rem;font-weight:500}
+.mnav-list a .ic{width:1.05em;height:1.05em;color:var(--turf-2);flex:none}
+.mnav-towns{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem .55rem;margin-top:.8rem;width:100%}
+.mnav-towns a{display:inline-flex;align-items:center;gap:.4rem;padding:.48rem .8rem;
+  border:1px solid var(--line);border-radius:999px;font-size:.86rem;font-weight:500;color:#cfdcd1;
+  background:rgba(255,255,255,.02)}
+.mnav-towns a .ic{width:.85em;height:.85em;color:var(--turf-2);flex:none}
+.mnav-call{margin-top:2.1rem}
+
+/* ---------- footer centered on mobile ---------- */
+@media (max-width:819px){
+  .foot-grid{text-align:center;justify-items:center}
+  .foot-brand{flex-direction:column;align-items:center;text-align:center}
+  .foot-brand p{margin-inline:auto}
+  .foot ul li{justify-content:center}
+  .foot ul li:not(:has(a)){justify-content:center}
+  .foot-bot{flex-direction:column;align-items:center;text-align:center}
+}

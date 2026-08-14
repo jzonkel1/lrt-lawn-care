@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jzonkel1.github.io/lrt-lawn-care/sitemap.xml
