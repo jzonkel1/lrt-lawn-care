@@ -75,9 +75,9 @@ def fbic():
 # ============================================================
 SERVICES = [
  dict(
-  slug="commercial-lawn-maintenance", name="Commercial Lawn Maintenance", icon="building",
+  slug="commercial-lawn-maintenance", kind="Recurring &middot; weekly or bi-weekly", name="Commercial Lawn Maintenance", icon="building",
   card_photo="g-field-mowers.webp", card_alt="Two SCAG zero-turn mowers cutting a large open commercial field",
-  card_desc="Offices, storefronts, rentals and multi-building sites kept on a fixed schedule &mdash; including the ditches, right-of-ways and fence lines most crews skip.",
+  card_desc="The recurring one: mowing, edging and grounds upkeep on a fixed weekly or bi-weekly schedule &mdash; including the ditches, right-of-ways and fence lines most crews skip.",
   tags=["Fixed schedule","Ditch &amp; ROW","Fully insured"],
   title="Commercial Lawn Maintenance | Coastal Bend, TX",
   desc="Fully insured commercial lawn maintenance for offices, retail, rentals, HOAs and industrial sites in Portland, Corpus Christi and the Coastal Bend. Fixed schedule, one invoice. Call (361) 765-5258.",
@@ -108,7 +108,7 @@ SERVICES = [
   related=["commercial-landscaping","pressure-washing","seasonal-cleanups-haul-off"],
  ),
  dict(
-  slug="residential-lawn-care", name="Residential Lawn Care", icon="grass",
+  slug="residential-lawn-care", kind="Recurring &middot; weekly or bi-weekly", name="Residential Lawn Care", icon="grass",
   card_photo="g-pool-lawn.webp", card_alt="A backyard pool bordered by mowed lawn and a clean patio",
   card_desc="Mow, edge, weed-eat and blow down &mdash; front, back and sides &mdash; on a weekly or bi-weekly route so your yard never gets away from you.",
   tags=["Mowing","Edging","Weed eating","Blow down"],
@@ -140,9 +140,9 @@ SERVICES = [
   related=["residential-landscaping","tree-shrub-trimming","seasonal-cleanups-haul-off"],
  ),
  dict(
-  slug="commercial-landscaping", name="Commercial Landscaping", icon="layers",
+  slug="commercial-landscaping", kind="Project &middot; install &amp; upkeep", name="Commercial Landscaping", icon="layers",
   card_photo="g-entry-beds.webp", card_alt="An entry walkway with trimmed shrubs and a clean rock border",
-  card_desc="Beds, borders, plantings, mulch and sod that make a property easier to lease, rent and run &mdash; installed, then maintained by the same crew.",
+  card_desc="The project one: beds, borders, plantings, mulch and sod installed once &mdash; then handed to the maintenance route so they hold up.",
   tags=["Beds &amp; borders","Mulch &amp; sod","Property appearance"],
   title="Commercial Landscaping | Coastal Bend, TX",
   desc="Commercial landscaping for offices, retail centers, rentals and HOAs in Portland, Corpus Christi and the Coastal Bend — beds, borders, mulch, sod and ongoing property appearance management. Call (361) 765-5258.",
@@ -173,7 +173,7 @@ SERVICES = [
   related=["commercial-lawn-maintenance","mulch-sod-installation","pressure-washing"],
  ),
  dict(
-  slug="residential-landscaping", name="Residential Landscaping", icon="sprout",
+  slug="residential-landscaping", kind="Project &middot; install &amp; upkeep", name="Residential Landscaping", icon="sprout",
   card_photo="svc-landscaping.webp", card_alt="A curved decomposed granite walkway installed through fresh sod",
   card_desc="Beds, borders, walkways, rock beds and plantings designed for your yard &mdash; then maintained so they actually fill in and hold up.",
   tags=["Mulch install","Sod install","Beds &amp; walkways"],
@@ -205,7 +205,7 @@ SERVICES = [
   related=["mulch-sod-installation","residential-lawn-care","tree-shrub-trimming"],
  ),
  dict(
-  slug="tree-shrub-trimming", name="Tree &amp; Shrub Trimming", icon="tree",
+  slug="tree-shrub-trimming", kind="Recurring or one-time", name="Tree &amp; Shrub Trimming", icon="tree",
   card_photo="svc-trimming.webp", card_alt="A home entry walkway with trimmed shrubs and a clean rock border",
   card_desc="Shrub and tree trimming that keeps sight lines open, walkways clear and the front of the property looking sharp.",
   tags=["Shrub trimming","Tree trimming"],
@@ -237,7 +237,7 @@ SERVICES = [
   related=["residential-lawn-care","seasonal-cleanups-haul-off","residential-landscaping"],
  ),
  dict(
-  slug="mulch-sod-installation", name="Mulch &amp; Sod Installation", icon="shovel",
+  slug="mulch-sod-installation", kind="Project &middot; one-time install", name="Mulch &amp; Sod Installation", icon="shovel",
   card_photo="g-path-tall.webp", card_alt="A curved decomposed granite walkway running through thick green turf",
   card_desc="Fresh mulch in the beds and new sod where the yard needs it &mdash; prepped, installed and edged so it takes.",
   tags=["Mulch install","Sod install","Bed prep"],
@@ -268,7 +268,7 @@ SERVICES = [
   related=["residential-landscaping","commercial-landscaping","residential-lawn-care"],
  ),
  dict(
-  slug="seasonal-cleanups-haul-off", name="Clean-Ups &amp; Haul-Off", icon="truck",
+  slug="seasonal-cleanups-haul-off", kind="One-time visits", name="Clean-Ups &amp; Haul-Off", icon="truck",
   card_photo="svc-cleanup.webp", card_alt="LRT's trailer loaded with broken-out concrete ready to be hauled off",
   card_desc="Seasonal clean-ups, leaf removal and yard clean-outs with the debris hauled off &mdash; not bagged and left at the curb.",
   tags=["Seasonal clean-up","Leaf removal","Haul off"],
@@ -300,7 +300,7 @@ SERVICES = [
   related=["residential-lawn-care","tree-shrub-trimming","mulch-sod-installation"],
  ),
  dict(
-  slug="pressure-washing", name="Pressure Washing", icon="droplet",
+  slug="pressure-washing", kind="One-time or add-on", name="Pressure Washing", icon="droplet",
   card_photo="g-walk-edges.webp", card_alt="Two concrete walkways meeting with sharply edged turf on every side",
   card_desc="Driveways, sidewalks, curbs and flatwork washed clean &mdash; as a stand-alone visit or an add-on to your maintenance schedule.",
   tags=["Driveways","Sidewalks","Flatwork"],
@@ -441,7 +441,7 @@ GEN_NOTE = "<!-- Generated by build.py — edit build.py and re-run; don't hand-
 # Cache-buster for site.css / pages.css / site.js. Bump whenever those files
 # change, or browsers keep serving the stale cached versions (symptom: carousel
 # slides stack vertically full-width because the CSS never arrived).
-ASSET_V = "9"
+ASSET_V = "10"
 
 def head(title, desc, extra=""):
     return f"""<!DOCTYPE html>
@@ -649,6 +649,7 @@ def svc_card(s, photo=None, desc=None):
         <div class="svc-photo"><img src="/assets/{photo}" alt="{s["card_alt"]}" loading="lazy" width="880" height="520"></div>
         <div class="svc-body">
           <div class="svc-ic">{ic(s["icon"])}</div>
+          <span class="svc-kind">{s["kind"]}</span>
           <h3>{s["name"]}</h3>
           <p>{desc}</p>
           <div class="svc-tags">{tags}</div>
@@ -1293,7 +1294,7 @@ def build_service_page(s):
 </section>"""
 
     html = head(s["title"] + " | " + "LRT Lawn Care &amp; Landscaping", s["desc"]) + nav() + page_hero(
-      s["h1"], s["sub"], s["hero_photo"], s["hero_alt"],
+      s["h1"], f'<span class="svc-kind on-hero">{s["kind"]}</span>' + s["sub"], s["hero_photo"], s["hero_alt"],
       crumbs(("Home","/"),("Services","/services/"),(s["name"],None)),
     ) + f"""
 <!-- ============ INTRO ============ -->

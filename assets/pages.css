@@ -164,6 +164,12 @@ a.svc:hover .svc-more .ic{color:var(--turf-2)}
 .svc-grid.centered{display:flex;flex-wrap:wrap;justify-content:center}
 .svc-grid.centered .svc{flex:1 1 300px;max-width:400px}
 
+/* service-kind label — separates the recurring services from project work
+   (e.g. commercial lawn maintenance vs commercial landscaping) */
+.svc-kind{display:block;font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--sun-3);margin-bottom:.4rem}
+.svc-kind.on-hero{margin-bottom:.55rem;color:var(--sun-3);text-shadow:0 2px 10px rgba(0,0,0,.8)}
+
 /* clickable service cards */
 a.svc{color:inherit}
 a.svc .svc-more{display:inline-flex;align-items:center;gap:.45rem;margin-top:auto;padding-top:1rem;
