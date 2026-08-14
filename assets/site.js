@@ -18,11 +18,41 @@
   }
 
   /* ---- pre-fill the quote form's service from ?service= (plan buttons link here) ---- */
-  var svcPre = new URLSearchParams(location.search).get('service');
-  if (svcPre){
+  function prefillService(v){
+    var ok = false;
     document.querySelectorAll('form[name="lrt-quote"] select[name="service"]').forEach(function(sel){
-      sel.value = svcPre;
-      if (sel.value !== svcPre) sel.selectedIndex = 0;   // unknown value — leave the placeholder
+      sel.value = v;
+      if (sel.value !== v) sel.selectedIndex = 0;   // unknown value — leave the placeholder
+      else ok = true;
+    });
+    return ok;
+  }
+  var svcPre = new URLSearchParams(location.search).get('service');
+  if (svcPre) prefillService(svcPre);
+
+  /* The browser's #quote jump fires before images above the form finish
+     loading, so the layout shifts and the form ends up below the viewport.
+     Re-jump once everything has laid out. */
+  var quoteSec = document.getElementById('quote');
+  if (quoteSec && (svcPre || location.hash === '#quote')){
+    var rejump = function(){ quoteSec.scrollIntoView({behavior:'auto', block:'start'}); };
+    rejump();
+    if (document.readyState !== 'complete') addEventListener('load', function(){ rejump(); setTimeout(rejump, 120); });
+    else setTimeout(rejump, 120);
+  }
+
+  /* Plan buttons link to /contact/?service=…#quote for pages without a form —
+     but when the quote form is already on this page, prefill and glide down
+     instead of doing a full navigation. */
+  if (quoteSec){
+    document.querySelectorAll('a[href*="service="][href*="#quote"]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var v = new URL(a.href).searchParams.get('service');
+        if (!v) return;
+        e.preventDefault();
+        prefillService(v);
+        quoteSec.scrollIntoView({behavior:'smooth', block:'start'});
+      });
     });
   }
 
