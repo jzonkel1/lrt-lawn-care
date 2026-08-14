@@ -161,7 +161,7 @@ SERVICES = [
  ),
  dict(
   slug="commercial-landscaping", kind="Project &middot; install &amp; upkeep", name="Commercial Landscaping", icon="layers",
-  card_photo="svc-commercial-building.webp", card_alt="Fresh mulch beds with ornamental grasses along a commercial building and edged walkway",
+  card_photo="svc-commercial-rig.webp", card_alt="LRT's truck and trailer at a commercial property with fresh rock beds and ornamental grasses",
   card_desc="The project one: beds, borders, plantings, mulch and sod installed once &mdash; then handed to the maintenance route so they hold up.",
   tags=["Beds &amp; borders","Mulch &amp; sod","Property appearance"],
   title="Commercial Landscaping | Coastal Bend, TX",
@@ -991,7 +991,7 @@ HOME_REELS = [
      "Two quick stills &mdash; overgrown, then knocked down &mdash; and the walk back past the sign."),
     ("clip-commercial", "Commercial Grounds, Edged to the Curb",
      "A hotel frontage on the commercial route &mdash; medians, curbs and entrances kept tight."),
-    ("reel-trailer", "Loaded Up Between Stops",
+    ("reel-trailer-2", "Loaded Up Between Stops",
      "Commercial-grade SCAG equipment with backups, so the schedule holds."),
 ]
 
