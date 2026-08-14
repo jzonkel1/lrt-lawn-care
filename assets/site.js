@@ -3,6 +3,20 @@
   var yr = document.getElementById('yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
+  /* ---- GitHub Pages preview guard ----
+     Netlify Forms only exist on the Netlify deploy. On the github.io mirror a
+     form POST would silently 405 and eat the lead, so route people to the
+     phone instead. */
+  var isMirror = /\.github\.io$/.test(location.hostname);
+  if (isMirror){
+    document.querySelectorAll('form[name="lrt-quote"]').forEach(function(f){
+      f.addEventListener('submit', function(e){
+        e.preventDefault();
+        alert("This preview site isn't taking form submissions yet — call or text LRT at (361) 765-5258 and we'll get you a quote.");
+      });
+    });
+  }
+
   /* ---- pre-fill the quote form's service from ?service= (plan buttons link here) ---- */
   var svcPre = new URLSearchParams(location.search).get('service');
   if (svcPre){
