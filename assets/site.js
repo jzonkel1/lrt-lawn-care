@@ -65,21 +65,42 @@
   }
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
-  /* ---- services dropdown (hover opens it; click/keys for touch + a11y) ---- */
-  var drop = document.getElementById('navDrop');
-  if (drop){
+  /* ---- nav dropdowns (click to open; one at a time) ---- */
+  var drops = [].slice.call(document.querySelectorAll('.nav-drop'));
+  function closeDrop(d){
+    d.classList.remove('open');
+    d.querySelector('button').setAttribute('aria-expanded','false');
+  }
+  drops.forEach(function(drop){
     var trigger = drop.querySelector('button');
     trigger.addEventListener('click', function(e){
       e.stopPropagation();
+      drops.forEach(function(d){ if (d !== drop) closeDrop(d); });
       var open = drop.classList.toggle('open');
       trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-    document.addEventListener('click', function(e){
-      if (!drop.contains(e.target)){ drop.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); }
-    });
     drop.addEventListener('keydown', function(e){
-      if (e.key === 'Escape'){ drop.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); trigger.focus(); }
+      if (e.key === 'Escape'){ closeDrop(drop); trigger.focus(); }
     });
+  });
+  if (drops.length){
+    document.addEventListener('click', function(e){
+      drops.forEach(function(d){ if (!d.contains(e.target)) closeDrop(d); });
+    });
+  }
+
+  /* ---- mobile menu (hamburger sheet) ---- */
+  var burger = document.getElementById('navBurger'), mnav = document.getElementById('mnav');
+  if (burger && mnav){
+    var setMenu = function(open){
+      document.documentElement.classList.toggle('mnav-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    burger.addEventListener('click', function(){
+      setMenu(!document.documentElement.classList.contains('mnav-open'));
+    });
+    mnav.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+    addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
   }
 
   /* ---- reveal on scroll ---- */

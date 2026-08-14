@@ -328,3 +328,65 @@ a.ccard:hover{border-color:var(--line-2);transform:translateY(-3px)}
 @media (max-width:640px){
   .ww-radius{text-align:center}
 }
+
+/* ---------- nav dropdown fixes ----------
+   The panel used to anchor to the trigger button and rose 19px INTO the bar
+   (looked like the nav "went black" and bled above it when scrolled). Anchor
+   panels to the bar's bottom edge instead, and open on CLICK only. */
+.nav-drop{position:static}
+.nav-drop::after{content:none}
+.nav-menu{top:100%;left:50%;translate:-50% 0;transform:translateY(6px)}
+.nav-drop:hover:not(.open) .nav-menu{opacity:0;visibility:hidden;transform:translateY(6px)}
+.nav-drop:hover:not(.open)>button .ic{transform:none}
+.nav-drop:hover:not(.open)>button::after{transform:scaleX(0)}
+.nav-menu.cols3{grid-template-columns:repeat(3,1fr);width:min(680px,92vw)}
+
+/* ---------- hamburger + mobile menu sheet ---------- */
+.nav-in{position:relative;z-index:2}
+.nav-burger{display:none}
+@media (max-width:1039px){
+  .nav-burger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    width:44px;height:44px;flex:none;border:1px solid var(--line-2);border-radius:12px;
+    background:rgba(6,13,8,.45);cursor:pointer;padding:0}
+}
+.nav-burger span{display:block;width:18px;height:2px;background:#e6ece6;border-radius:2px;
+  transition:transform .3s var(--ease),opacity .2s}
+.mnav-open .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mnav-open .nav-burger span:nth-child(2){opacity:0}
+.mnav-open .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mnav{position:fixed;inset:0;z-index:1;background:rgba(6,13,8,.97);
+  backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);
+  opacity:0;visibility:hidden;transition:opacity .32s var(--ease),visibility .32s;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;padding:100px 0 2.5rem;overscroll-behavior:contain}
+.mnav-open .mnav{opacity:1;visibility:visible}
+.mnav-open .nav{background:rgba(6,13,8,.92)}
+html.mnav-open{overflow:hidden}
+.mnav-open #callbar{visibility:hidden}
+@media (min-width:1040px){.mnav{display:none}}
+.mnav-in{width:var(--shell);margin-inline:auto;display:grid;justify-items:center;text-align:center;padding-bottom:2rem}
+.mnav-primary{display:grid;width:100%}
+.mnav-primary a{font-family:var(--disp);font-weight:600;font-size:1.55rem;letter-spacing:-.02em;
+  padding:.6rem;color:var(--txt)}
+.mnav-label{margin-top:1.9rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted);font-weight:600}
+.mnav-list{display:grid;width:100%;margin-top:.55rem}
+.mnav-list a{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.52rem;color:#cfdcd1;font-size:1.02rem;font-weight:500}
+.mnav-list a .ic{width:1.05em;height:1.05em;color:var(--turf-2);flex:none}
+.mnav-towns{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem .55rem;margin-top:.8rem;width:100%}
+.mnav-towns a{display:inline-flex;align-items:center;gap:.4rem;padding:.48rem .8rem;
+  border:1px solid var(--line);border-radius:999px;font-size:.86rem;font-weight:500;color:#cfdcd1;
+  background:rgba(255,255,255,.02)}
+.mnav-towns a .ic{width:.85em;height:.85em;color:var(--turf-2);flex:none}
+.mnav-call{margin-top:2.1rem}
+
+/* ---------- footer centered on mobile ---------- */
+@media (max-width:819px){
+  .foot-grid{text-align:center;justify-items:center}
+  .foot-brand{flex-direction:column;align-items:center;text-align:center}
+  .foot-brand p{margin-inline:auto}
+  .foot ul li{justify-content:center}
+  .foot ul li:not(:has(a)){justify-content:center}
+  .foot-bot{flex-direction:column;align-items:center;text-align:center}
+}
