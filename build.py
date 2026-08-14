@@ -12,8 +12,10 @@ Facts sourced from the client's Fillout onboarding (Aug 2026) and
 research-notes.md in the DEMOS folder. Pricing is QUOTE-ONLY by the
 client's explicit choice — never print dollar amounts.
 """
+import html as htmllib
 import json
 import os
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -23,6 +25,11 @@ ROOT = Path(__file__).parent
 # WITHOUT a base (Netlify-ready); the gh-pages branch is built with:
 #   LRT_BASE=/lrt-lawn-care python build.py
 BASE = os.environ.get("LRT_BASE", "").rstrip("/")
+
+# Absolute origin used for canonical URLs, og: tags, schema and sitemap.xml.
+# TODO AT LAUNCH: change this default to the real domain (https://...) once
+# it's registered and the Netlify site is live, then rebuild BOTH branches.
+SITE_URL = os.environ.get("LRT_SITE_URL", "https://jzonkel1.github.io/lrt-lawn-care").rstrip("/")
 
 # ============================================================
 # BUSINESS DATA
@@ -152,7 +159,7 @@ SERVICES = [
   card_desc="The project one: beds, borders, plantings, mulch and sod installed once &mdash; then handed to the maintenance route so they hold up.",
   tags=["Beds &amp; borders","Mulch &amp; sod","Property appearance"],
   title="Commercial Landscaping | Coastal Bend, TX",
-  desc="Commercial landscaping for offices, retail centers, rentals and HOAs in Portland, Corpus Christi and the Coastal Bend — beds, borders, mulch, sod and ongoing property appearance management. Call (361) 765-5258.",
+  desc="Commercial landscaping for offices, retail centers, rentals and HOAs in Portland, Corpus Christi and the Coastal Bend — installed, then maintained. Call (361) 765-5258.",
   h1="Landscaping that makes a property <em>easier to lease</em>.",
   sub="Beds, borders, plantings, mulch and sod for offices, centers and multi-unit properties &mdash; installed, then maintained.",
   hero_photo="hero-bayfront.webp", hero_alt="A maintained bayfront property running down to a private pier",
@@ -459,7 +466,9 @@ def head(title, desc, extra=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#060D08">
-<link rel="icon" href="/assets/lrt-logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,50,1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -945,6 +954,9 @@ def build_home():
       "@type": "LocalBusiness",
       "name": "LRT Lawn Care & Landscaping, LLC",
       "description": "Fully insured commercial and residential lawn maintenance and landscaping in Portland, Corpus Christi and the Coastal Bend, Texas.",
+      "url": SITE_URL + "/",
+      "image": SITE_URL + "/assets/og-image.jpg",
+      "logo": SITE_URL + "/assets/lrt-logo.png",
       "telephone": "+1-361-765-5258",
       "email": EMAIL,
       "slogan": "Taking Pride in Every Property We Maintain.",
@@ -960,7 +972,7 @@ def build_home():
 
     html = head(
       "LRT Lawn Care &amp; Landscaping | Portland, Corpus Christi &amp; the Coastal Bend",
-      "Fully insured commercial &amp; residential lawn maintenance and landscaping in Portland, Corpus Christi, Ingleside, Aransas Pass and Rockport, TX. Weekly and bi-weekly service. Call or text (361) 765-5258.",
+      "Fully insured commercial &amp; residential lawn maintenance and landscaping in Portland, Corpus Christi and the Coastal Bend, TX. Free quotes — call or text (361) 765-5258.",
       extra,
     ) + nav() + f"""
 <!-- ============ HERO ============ -->
@@ -1251,6 +1263,29 @@ def build_services_index():
 """ + footer() + tail()
     return html
 
+def _plain(s):
+    """HTML string -> plain text for JSON-LD (strip tags, decode entities)."""
+    return htmllib.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+
+def service_schema(s):
+    """FAQPage + BreadcrumbList JSON-LD for a service page."""
+    faq = {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      "mainEntity": [{"@type": "Question", "name": _plain(q),
+                      "acceptedAnswer": {"@type": "Answer", "text": _plain(a)}}
+                     for q, a in s["faqs"]],
+    }
+    crumbs_ld = {
+      "@context": "https://schema.org", "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Services", "item": SITE_URL + "/services/"},
+        {"@type": "ListItem", "position": 3, "name": _plain(s["name"])},
+      ],
+    }
+    return (f'\n<script type="application/ld+json">{json.dumps(faq)}</script>'
+            f'\n<script type="application/ld+json">{json.dumps(crumbs_ld)}</script>')
+
 def build_service_page(s):
     # optional commercial property-type chips
     prop_html = ""
@@ -1300,7 +1335,7 @@ def build_service_page(s):
   </div>
 </section>"""
 
-    html = head(s["title"] + " | " + "LRT Lawn Care &amp; Landscaping", s["desc"]) + nav() + page_hero(
+    html = head(s["title"] + " | " + "LRT Lawn Care &amp; Landscaping", s["desc"], service_schema(s)) + nav() + page_hero(
       s["h1"], f'<span class="svc-kind on-hero">{s["kind"]}</span>' + s["sub"], s["hero_photo"], s["hero_alt"],
       crumbs(("Home","/"),("Services","/services/"),(s["name"],None)),
     ) + f"""
@@ -1706,6 +1741,24 @@ def build_thank_you():
 # EMIT
 # ============================================================
 def write(path, html):
+    # canonical + social tags, derived from the page's own <title>/description
+    # so they can't drift. Skipped on noindex pages (thank-you).
+    if 'name="robots" content="noindex"' not in html:
+        url = SITE_URL + "/" + path.replace("index.html", "")
+        t = re.search(r"<title>(.*?)</title>", html, re.S).group(1)
+        d = re.search(r'<meta name="description" content="(.*?)">', html, re.S).group(1)
+        social = f"""<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LRT Lawn Care &amp; Landscaping">
+<meta property="og:title" content="{t}">
+<meta property="og:description" content="{d}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE_URL}/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>"""
+        html = html.replace("</head>", social, 1)
     if BASE:
         # every internal URL is root-relative (href/src/action/poster/data-src),
         # so prefixing at the ="/ boundary rewrites all of them at once
@@ -1728,6 +1781,20 @@ def main():
     for i, t in enumerate(TOWNS):
         write(f"service-areas/{t['slug']}/index.html", build_area_page(t, TOWN_HEROES[i % len(TOWN_HEROES)]))
     write("thank-you/index.html", build_thank_you())
+
+    # sitemap.xml + robots.txt (thank-you is noindex — leave it out)
+    paths = (["", "services/", "our-work/", "about/", "contact/", "service-areas/"]
+             + [f"services/{s['slug']}/" for s in SERVICES]
+             + [f"service-areas/{t['slug']}/" for t in TOWNS])
+    urls = "\n".join(f"  <url><loc>{SITE_URL}/{p}</loc></url>" for p in paths)
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}\n</urlset>\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
+    print("  sitemap.xml + robots.txt")
+
     n = 7 + len(SERVICES) + len(TOWNS)
     print(f"Done - {n} pages.")
 

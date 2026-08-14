@@ -50,6 +50,10 @@ Shared assets:
 2. Netlify → Forms → verify `lrt-quote` and `lrt-quote-wizard` are detected; set the
    **notification email**. Forms are NOT lead-ready until this is done and test-submitted.
 3. Domain — none registered yet. Check `lrtlawncare.com` etc. with the client.
+   **When the domain is live: change the `SITE_URL` default at the top of `build.py`**
+   (currently the GitHub Pages URL) and rebuild BOTH branches — it drives the canonical
+   URLs, og: tags, LocalBusiness schema and sitemap.xml. Then submit the sitemap in
+   Google Search Console.
 4. Get the insurance certificate before the $1M/$2M claims go live.
 5. GBP: none exists — create from the **agency** Google account with an evidence pack.
 6. Tell the client the site isn't taking leads until step 2 is verified.
